@@ -5,11 +5,31 @@ const Header: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [lastUpdate, setLastUpdate] = useState(new Date())
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [uptime, setUptime] = useState({ days: 3, hours: 0, minutes: 0, seconds: 0 })
+
+  // 启动时间（3天前）
+  const startTime = useState(() => {
+    const start = new Date()
+    start.setDate(start.getDate() - 3)
+    return start
+  })[0]
 
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000)
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+      
+      // 计算运行时间
+      const now = new Date()
+      const diff = now.getTime() - startTime.getTime()
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+      
+      setUptime({ days, hours, minutes, seconds })
+    }, 1000)
     return () => clearInterval(timer)
-  }, [])
+  }, [startTime])
 
   const handleRefresh = () => {
     setIsRefreshing(true)
@@ -21,9 +41,9 @@ const Header: React.FC = () => {
   }
 
   const stats = [
-    { label: '在线', value: '3天', icon: '⏱️' },
+    { label: '在线时长', value: `${uptime.days}天${uptime.hours}时${uptime.minutes}分${uptime.seconds}秒`, icon: '⏱️', shortValue: `${uptime.days}d ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s` },
     { label: '任务', value: '1,248', icon: '✅' },
-    { label: '数据', value: '5.2TB', icon: '💾' },
+    { label: '已处理数据', value: '5.2TB', icon: '💾' },
     { label: '技能', value: '11', icon: '🎯' },
   ]
 
@@ -62,7 +82,7 @@ const Header: React.FC = () => {
               transition={{ delay: 0.2, duration: 0.4 }}
               className="text-2xl font-bold text-white tracking-tight"
             >
-              小东 AI助手
+              小东
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, x: -10 }}
@@ -70,7 +90,7 @@ const Header: React.FC = () => {
               transition={{ delay: 0.3, duration: 0.4 }}
               className="text-sm text-white/50 font-medium"
             >
-              东品西选电商服务（成都）有限公司
+              跨境电商专家
             </motion.p>
           </div>
         </div>
@@ -90,10 +110,11 @@ const Header: React.FC = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.3 + index * 0.08 }}
                 whileHover={{ scale: 1.05, y: -2 }}
-                className="metric-card text-center min-w-[72px] cursor-default"
+                className="metric-card text-center min-w-[90px] cursor-default"
+                title={stat.label === '在线时长' ? stat.value : undefined}
               >
                 <div className="text-lg mb-0.5">{stat.icon}</div>
-                <div className="metric-value text-lg">{stat.value}</div>
+                <div className="metric-value text-base">{stat.shortValue || stat.value}</div>
                 <div className="metric-label text-[10px]">{stat.label}</div>
               </motion.div>
             ))}
