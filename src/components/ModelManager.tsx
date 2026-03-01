@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface Model {
@@ -15,8 +15,9 @@ interface Model {
 
 const ModelManager: React.FC = () => {
   const [filter, setFilter] = useState<'全部' | '大模型' | '嵌入式' | '图像' | '代码' | '本地' | '云端'>('全部')
+  const [lastUpdate, setLastUpdate] = useState(new Date())
 
-  const models: Model[] = [
+  const baseModels: Model[] = [
     {
       name: 'KIMI2.5',
       provider: 'Moonshot',
@@ -123,6 +124,27 @@ const ModelManager: React.FC = () => {
     },
   ]
 
+  const [models, setModels] = useState(baseModels)
+
+  // 模拟模型状态变化
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setModels(prev => prev.map(model => {
+        // 随机改变某些模型的状态（模拟负载均衡）
+        if (Math.random() > 0.95 && model.status === 'active') {
+          return { ...model, status: 'standby' as const }
+        }
+        if (Math.random() > 0.98 && model.status === 'standby' && model.priority <= 3) {
+          return { ...model, status: 'active' as const }
+        }
+        return model
+      }))
+      setLastUpdate(new Date())
+    }, 30000) // 30秒
+
+    return () => clearInterval(interval)
+  }, [])
+
   const filteredModels = filter === '全部' 
     ? models 
     : models.filter(m => m.category === filter || m.type === filter)
@@ -165,6 +187,7 @@ const ModelManager: React.FC = () => {
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
           <span className="text-sm text-white/60 font-medium">{activeCount}个活跃</span>
+          <span className="text-[10px] text-white/40">更新: {lastUpdate.toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit', second:'2-digit'})}</span>
         </div>
       </div>
 
@@ -261,6 +284,14 @@ const ModelManager: React.FC = () => {
         <div className="text-label mb-2">智能路由策略</div>
         <div className="text-xs text-white/60 leading-relaxed font-medium">
           本地 → KIMI2.5 → DeepSeek → GPT-4.1 Mini → Claude 3.5 → GPT-4o → 其他
+        </div>
+      </div>
+
+      {/* Update Info */}
+      <div className="mt-3 pt-3 border-t border-white/10">
+        <div className="flex items-center justify-between text-[10px] text-white/40">
+          <span>模型状态每30秒自动更新</span>
+          <span>下次更新: {new Date(lastUpdate.getTime() + 30000).toLocaleTimeString('zh-CN')}</span>
         </div>
       </div>
     </motion.div>
