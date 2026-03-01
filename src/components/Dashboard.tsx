@@ -1,14 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 
 const Dashboard: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState(new Date())
-
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 1000)
-    return () => clearInterval(timer)
-  }, [])
-
   const systemHealth = [
     { name: 'API服务', status: 'healthy', latency: '28ms' },
     { name: '数据库', status: 'healthy', latency: '12ms' },
@@ -30,21 +23,10 @@ const Dashboard: React.FC = () => {
       transition={{ duration: 0.4 }}
       className="card"
     >
-      {/* Top Row */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
-        <div>
-          <h1 className="text-lg font-bold text-white">控制中心</h1>
-          <p className="text-xs text-white/60">实时监控 • 智能调度</p>
-        </div>
-        
-        <div className="text-right">
-          <div className="text-xl font-bold text-white">
-            {currentTime.toLocaleTimeString('zh-CN', { hour12: false })}
-          </div>
-          <div className="text-xs text-white/70">
-            {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
-          </div>
-        </div>
+      {/* Header */}
+      <div className="mb-4">
+        <h1 className="text-lg font-bold text-white">控制中心</h1>
+        <p className="text-xs text-white/60">实时监控 • 智能调度</p>
       </div>
 
       {/* Quick Stats */}

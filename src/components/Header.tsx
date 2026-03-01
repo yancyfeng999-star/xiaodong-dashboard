@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const Header: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [lastUpdate, setLastUpdate] = useState(new Date())
+  const [currentTime, setCurrentTime] = useState(new Date())
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   const handleRefresh = () => {
     setIsRefreshing(true)
@@ -85,28 +91,31 @@ const Header: React.FC = () => {
         </div>
       </div>
       
-      {/* Bottom Status Bar */}
-      <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
-        <div className="flex items-center space-x-3 text-xs">
-          <div className="flex items-center">
-            <div className="status-indicator status-online animate-pulse"></div>
-            <span className="text-white/80">实时连接</span>
+      {/* Time & Date - Fixed */}
+      <div className="mt-3 pt-3 border-t border-white/10">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3 text-xs">
+            <div className="flex items-center">
+              <div className="status-indicator status-online animate-pulse"></div>
+              <span className="text-white/80">实时连接</span>
+            </div>
+            <span className="text-white/40">|</span>
+            <span className="text-white/60">KIMI2.5</span>
+            <span className="text-white/40">|</span>
+            <span className="text-white/60">
+              更新: {lastUpdate.toLocaleTimeString('zh-CN')}
+            </span>
           </div>
-          <span className="text-white/40">|</span>
-          <span className="text-white/60">KIMI2.5</span>
-          <span className="text-white/40">|</span>
-          <span className="text-white/60">
-            更新: {lastUpdate.toLocaleTimeString('zh-CN')}
-          </span>
-        </div>
-        
-        <div className="flex items-center space-x-2">
-          <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-200 text-xs rounded-full border border-emerald-500/30">
-            🟢 在线
-          </span>
-          <span className="px-2 py-0.5 bg-blue-500/20 text-blue-200 text-xs rounded-full border border-blue-500/30">
-            ⚡ 实时
-          </span>
+          
+          {/* Fixed Time Display */}
+          <div className="text-right">
+            <div className="text-lg font-bold text-white">
+              {currentTime.toLocaleTimeString('zh-CN', { hour12: false })}
+            </div>
+            <div className="text-xs text-white/70">
+              {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
+            </div>
+          </div>
         </div>
       </div>
     </motion.header>
