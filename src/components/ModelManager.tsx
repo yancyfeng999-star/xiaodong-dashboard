@@ -73,6 +73,28 @@ const ModelManager: React.FC = () => {
       priority: 5,
       features: ['极便宜', '中文好', '性价比高', '待注册']
     },
+    {
+      name: 'GPT-4.1 Mini',
+      provider: 'laozhang',
+      type: '云端',
+      status: 'active',
+      category: '大模型',
+      context: '128K',
+      cost: '按量付费',
+      priority: 3,
+      features: ['性价比高', '响应快', '中文支持', '已接入']
+    },
+    {
+      name: 'Claude 3.5 Haiku',
+      provider: 'laozhang',
+      type: '云端',
+      status: 'standby',
+      category: '大模型',
+      context: '200K',
+      cost: '低成本',
+      priority: 4,
+      features: ['快速响应', '轻量级', '高效', '已接入']
+    },
     // 本地模型
     {
       name: 'Llama 3.1',
@@ -176,6 +198,7 @@ const ModelManager: React.FC = () => {
   const activeCount = models.filter(m => m.status === 'active').length
   const localCount = models.filter(m => m.type === '本地').length
   const cloudCount = models.filter(m => m.type === '云端').length
+  const laozhangCount = models.filter(m => m.provider.includes('laozhang')).length
 
   return (
     <motion.div 
@@ -211,7 +234,7 @@ const ModelManager: React.FC = () => {
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-3 gap-2 mb-3">
+      <div className="grid grid-cols-4 gap-2 mb-3">
         <div className="metric-card text-center">
           <div className="text-base font-bold text-emerald-400">{activeCount}</div>
           <div className="text-[10px] text-white/50">使用中</div>
@@ -223,6 +246,10 @@ const ModelManager: React.FC = () => {
         <div className="metric-card text-center">
           <div className="text-base font-bold text-blue-400">{cloudCount}</div>
           <div className="text-[10px] text-white/50">云端</div>
+        </div>
+        <div className="metric-card text-center">
+          <div className="text-base font-bold text-amber-400">{laozhangCount}</div>
+          <div className="text-[10px] text-white/50">laozhang</div>
         </div>
       </div>
 
@@ -299,7 +326,7 @@ const ModelManager: React.FC = () => {
       <div className="mt-3 pt-3 border-t border-white/10">
         <div className="text-[10px] text-white/50 mb-1">🔄 智能路由策略</div>
         <div className="text-[10px] text-white/70">
-          本地 → KIMI2.5 → DeepSeek → GPT-4o → Claude → 其他
+          本地 → KIMI2.5 → DeepSeek → laozhang(GPT-4.1/Claude) → GPT-4o → 其他
         </div>
       </div>
     </motion.div>
