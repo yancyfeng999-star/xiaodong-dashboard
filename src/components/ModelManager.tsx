@@ -321,7 +321,7 @@ const ModelManager: React.FC = () => {
       <div className="mt-3 pt-3 border-t border-white/10">
         <div className="text-[10px] text-white/50 mb-1">🔄 智能路由策略</div>
         <div className="text-[10px] text-white/70">
-          本地 → KIMI2.5 → DeepSeek → laozhang(GPT-4.1/Claude) → GPT-4o → 其他
+          本地 → KIMI2.5 → DeepSeek → GPT-4.1 Mini → Claude 3.5 → GPT-4o → 其他
         </div>
       </div>
     </motion.div>
