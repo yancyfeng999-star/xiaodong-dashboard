@@ -1,120 +1,128 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const KnowledgeBase: React.FC = () => {
+  // 实际技能列表 - 15个
+  const skills = [
+    { name: 'find-skills', category: '工具', desc: '技能发现' },
+    { name: 'docs-cog', category: '文档', desc: '文档处理' },
+    { name: 'skill-creator', category: '开发', desc: '技能创建' },
+    { name: 'frontend-design', category: '设计', desc: '前端设计' },
+    { name: 'code-simplifier', category: '开发', desc: '代码简化' },
+    { name: 'parallel_tools', category: '优化', desc: '并行处理' },
+    { name: 'web-design', category: '设计', desc: '网页设计' },
+    { name: 'data-viz', category: '数据', desc: '数据可视化' },
+    { name: 'kpi-dashboard', category: '设计', desc: 'KPI仪表板' },
+    { name: 'apple-notes', category: '工具', desc: 'Apple笔记' },
+    { name: 'content-audit', category: '分析', desc: '内容审计' },
+    { name: 'web-search', category: '工具', desc: '网络搜索' },
+    { name: 'web-fetch', category: '工具', desc: '网页获取' },
+    { name: 'browser-control', category: '工具', desc: '浏览器控制' },
+    { name: 'memory-search', category: '工具', desc: '记忆搜索' },
+  ]
+
   const memoryFiles = [
-    { name: 'MEMORY.md', size: '8.2KB', updated: '今日', items: 45 },
-    { name: 'daily_tasks_log.md', size: '4.1KB', updated: '10:03', items: 32 },
-    { name: 'skill_evolution_log.md', size: '3.5KB', updated: '09:55', items: 28 },
-    { name: 'learning_log.md', size: '2.8KB', updated: '06:00', items: 15 },
+    { name: 'MEMORY.md', size: '45KB', type: '核心' },
+    { name: 'AGENTS.md', size: '13KB', type: '配置' },
+    { name: 'SOUL.md', size: '9KB', type: '核心' },
+    { name: 'USER.md', size: '6KB', type: '配置' },
   ]
 
-  const installedSkills = [
-    { name: 'frontend-design', category: '设计', installs: '109.8K' },
-    { name: 'web-design-guidelines', category: '设计', installs: '136.7K' },
-    { name: 'data-visualization', category: '数据', installs: '4.1K' },
-    { name: 'kpi-dashboard-design', category: '数据', installs: '2.9K' },
-    { name: 'find-skills', category: '工具', installs: '-' },
-    { name: 'skill-creator', category: '工具', installs: '54.1K' },
-    { name: 'code-simplifier', category: '工具', installs: '1.1K' },
-    { name: 'docs-cog', category: '文档', installs: '-' },
-  ]
-
-  const learningTopics = [
-    { topic: 'LanceDB向量数据库', progress: 100, status: '掌握' },
-    { topic: '多线程并行处理', progress: 95, status: '熟练' },
-    { topic: 'Python数据分析', progress: 90, status: '熟练' },
-    { topic: 'React前端开发', progress: 85, status: '学习中' },
-    { topic: '电商选品策略', progress: 88, status: '熟练' },
-  ]
+  const getCategoryColor = (cat: string) => {
+    const colors: {[key: string]: string} = {
+      '工具': 'bg-blue-500/20 text-blue-200 border-blue-500/30',
+      '文档': 'bg-amber-500/20 text-amber-200 border-amber-500/30',
+      '开发': 'bg-emerald-500/20 text-emerald-200 border-emerald-500/30',
+      '设计': 'bg-purple-500/20 text-purple-200 border-purple-500/30',
+      '优化': 'bg-cyan-500/20 text-cyan-200 border-cyan-500/30',
+      '数据': 'bg-pink-500/20 text-pink-200 border-pink-500/30',
+      '分析': 'bg-orange-500/20 text-orange-200 border-orange-500/30',
+    }
+    return colors[cat] || 'bg-gray-500/20 text-gray-200 border-gray-500/30'
+  }
 
   return (
-    <div className="card">
-      <h2 className="text-lg font-semibold text-gray-900 mb-4">📚 知识库</h2>
-      
-      <div className="space-y-6">
-        {/* 记忆文件 */}
-        <div>
-          <h3 className="text-sm font-medium text-gray-700 mb-3">💾 记忆文件</h3>
-          <div className="space-y-2">
-            {memoryFiles.map((file, index) => (
-              <div key={index} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-primary-100 rounded flex items-center justify-center">
-                    <span className="text-primary-600 text-sm">MD</span>
-                  </div>
-                  <div>
-                    <div className="font-medium text-gray-900">{file.name}</div>
-                    <div className="text-xs text-gray-500">{file.items}条记录</div>
-                  </div>
-                </div>
-                <div className="text-right">
-                  <div className="text-sm text-gray-900">{file.size}</div>
-                  <div className="text-xs text-gray-500">更新: {file.updated}</div>
+    <motion.div 
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      className="card"
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-bold text-white">🧠 知识库</h2>
+        <div className="flex items-center space-x-2">
+          <span className="text-xs text-white/60">15技能</span>
+          <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
+        </div>
+      </div>
+
+      {/* Skills Grid */}
+      <div className="mb-4">
+        <div className="text-label mb-2">已安装技能</div>
+        <div className="grid grid-cols-3 gap-2">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.2, delay: index * 0.02 }}
+              className="skill-card cursor-pointer"
+              title={`${skill.name}: ${skill.desc}`}
+            >
+              <div className={`text-[10px] px-1.5 py-0.5 rounded inline-block mb-1 border ${getCategoryColor(skill.category)}`}>
+                {skill.category}
+              </div>
+              <div className="text-xs font-medium text-white truncate">{skill.name}</div>
+              <div className="text-[10px] text-white/50 truncate">{skill.desc}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Memory Files */}
+      <div className="mb-3">
+        <div className="text-label mb-2">记忆文件</div>
+        <div className="grid grid-cols-2 gap-2">
+          {memoryFiles.map((file, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
+              className="metric-card flex items-center justify-between"
+            >
+              <div className="flex items-center space-x-2">
+                <span className="text-sm">📄</span>
+                <div>
+                  <div className="text-xs font-medium text-white">{file.name}</div>
+                  <div className="text-[10px] text-white/50">{file.type}</div>
                 </div>
               </div>
-            ))}
-          </div>
+              <span className="text-xs text-white/60">{file.size}</span>
+            </motion.div>
+          ))}
         </div>
+      </div>
 
-        {/* 已安装技能 */}
-        <div>
-          <h3 className="text-sm font-medium text-gray-700 mb-3">🛠️ 已安装Skill</h3>
-          <div className="grid grid-cols-2 gap-2">
-            {installedSkills.map((skill, index) => (
-              <div key={index} className="bg-gray-50 rounded p-2">
-                <div className="flex justify-between items-start">
-                  <span className="text-sm font-medium text-gray-900 truncate">{skill.name}</span>
-                  {skill.installs !== '-' && (
-                    <span className="text-xs text-gray-500">{skill.installs}</span>
-                  )}
-                </div>
-                <div className="text-xs text-gray-500 mt-1">{skill.category}</div>
-              </div>
-            ))}
+      {/* Stats */}
+      <div className="pt-3 border-t border-white/10">
+        <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="metric-card">
+            <div className="metric-value text-lg">15</div>
+            <div className="metric-label">技能</div>
           </div>
-        </div>
-
-        {/* 学习进度 */}
-        <div>
-          <h3 className="text-sm font-medium text-gray-700 mb-3">🎓 学习进度</h3>
-          <div className="space-y-3">
-            {learningTopics.map((topic, index) => (
-              <div key={index}>
-                <div className="flex justify-between text-sm mb-1">
-                  <span className="text-gray-700">{topic.topic}</span>
-                  <span className={`text-xs px-2 py-0.5 rounded ${
-                    topic.status === '掌握' ? 'bg-green-100 text-green-800' :
-                    topic.status === '熟练' ? 'bg-blue-100 text-blue-800' :
-                    'bg-yellow-100 text-yellow-800'
-                  }`}>
-                    {topic.status}
-                  </span>
-                </div>
-                <div className="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                  <div 
-                    className="h-full bg-primary-500 rounded-full"
-                    style={{ width: `${topic.progress}%` }}
-                  ></div>
-                </div>
-              </div>
-            ))}
+          <div className="metric-card">
+            <div className="metric-value text-lg">4</div>
+            <div className="metric-label">记忆文件</div>
           </div>
-        </div>
-
-        <div className="pt-4 border-t border-gray-200">
-          <div className="flex items-center justify-between">
-            <div>
-              <h4 className="text-sm font-medium text-gray-900">🧠 记忆系统</h4>
-              <p className="text-xs text-gray-600 mt-1">每日6:00自动学习，持续积累知识</p>
-            </div>
-            <div className="text-right">
-              <div className="text-lg font-bold text-primary-600">173</div>
-              <div className="text-xs text-gray-500">总记忆条目</div>
-            </div>
+          <div className="metric-card">
+            <div className="metric-value text-lg">73KB</div>
+            <div className="metric-label">总大小</div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

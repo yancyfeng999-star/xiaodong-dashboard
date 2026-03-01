@@ -1,82 +1,49 @@
 import React from 'react'
+import { motion } from 'framer-motion'
 
 const ThreadPool: React.FC = () => {
-  const threads = [
-    { id: 1, status: 'active', task: '选品分析', progress: 45 },
-    { id: 2, status: 'active', task: '页面开发', progress: 30 },
-    { id: 3, status: 'idle', task: '空闲', progress: 0 },
-    { id: 4, status: 'idle', task: '空闲', progress: 0 },
-    { id: 5, status: 'idle', task: '空闲', progress: 0 },
-    { id: 6, status: 'idle', task: '空闲', progress: 0 },
-    { id: 7, status: 'idle', task: '空闲', progress: 0 },
-    { id: 8, status: 'idle', task: '空闲', progress: 0 },
-    { id: 9, status: 'idle', task: '空闲', progress: 0 },
-    { id: 10, status: 'idle', task: '空闲', progress: 0 },
-  ]
-
-  const activeThreads = threads.filter(t => t.status === 'active').length
-  const utilization = (activeThreads / threads.length) * 100
+  const threads = Array.from({ length: 10 }, (_, i) => ({
+    id: i + 1,
+    active: i < 4,
+    task: i < 4 ? ['选品', '页面', '数据', 'API'][i] : null
+  }))
 
   return (
-    <div className="card">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold text-gray-900">🧵 线程池状态</h2>
-        <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-600">使用率: {utilization.toFixed(0)}%</span>
-          <div className="w-24 h-2 bg-gray-200 rounded-full overflow-hidden">
-            <div 
-              className="h-full bg-green-500 rounded-full transition-all duration-300"
-              style={{ width: `${utilization}%` }}
-            ></div>
-          </div>
-        </div>
+    <motion.div 
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5 }}
+      className="card"
+    >
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-base font-bold text-white">🧵 线程池</h2>
+        <span className="text-xs text-white/60">4/10 活跃</span>
       </div>
 
-      <div className="mb-4">
-        <div className="flex justify-between text-sm text-gray-600 mb-2">
-          <span>容量: {threads.length}线程</span>
-          <span>使用中: {activeThreads}线程</span>
-        </div>
-        
-        <div className="grid grid-cols-5 gap-3">
-          {threads.map(thread => (
-            <div key={thread.id} className="flex flex-col items-center">
-              <div className={`thread-indicator ${thread.status === 'active' ? 'thread-active' : 'thread-idle'}`}></div>
-              <span className="text-xs text-gray-500 mt-1 text-center">
-                {thread.task}
-              </span>
-              {thread.status === 'active' && (
-                <div className="w-full h-1 bg-gray-200 rounded-full mt-1 overflow-hidden">
-                  <div 
-                    className="h-full bg-primary-500 rounded-full"
-                    style={{ width: `${thread.progress}%` }}
-                  ></div>
-                </div>
-              )}
+      <div className="grid grid-cols-5 gap-2 mb-3">
+        {threads.map((thread) => (
+          <div key={thread.id} className="flex flex-col items-center">
+            <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-[10px] font-bold
+              ${thread.active 
+                ? 'bg-emerald-500/20 border-emerald-400 text-emerald-200' 
+                : 'bg-white/5 border-white/20 text-white/40'}`}>
+              {thread.id}
             </div>
-          ))}
-        </div>
+            {thread.task && (
+              <span className="text-[10px] text-white/60 mt-1">{thread.task}</span>
+            )}
+          </div>
+        ))}
       </div>
 
-      <div className="space-y-3">
-        <div className="flex items-center justify-between text-sm">
-          <span className="text-gray-700">🟢 活跃线程:</span>
-          <div className="flex space-x-2">
-            {threads.filter(t => t.status === 'active').map(thread => (
-              <span key={thread.id} className="task-badge task-running">
-                {thread.task}
-              </span>
-            ))}
-          </div>
-        </div>
-        
-        <div className="text-sm text-gray-600">
-          <p>• 可同时处理多个任务，智能调度资源</p>
-          <p>• 空闲线程等待新指令，随时可用</p>
-          <p>• 建议: 可同时下达3-5个新任务</p>
-        </div>
+      <div className="progress-bar">
+        <div className="progress-fill" style={{ width: '40%' }}></div>
       </div>
-    </div>
+      <div className="flex justify-between text-[10px] text-white/50 mt-1">
+        <span>使用率: 40%</span>
+        <span>10线程</span>
+      </div>
+    </motion.div>
   )
 }
 
