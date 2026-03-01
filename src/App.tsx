@@ -11,7 +11,6 @@ import MemoryFiles from './components/MemoryFiles'
 import KnowledgeContent from './components/KnowledgeContent'
 import Schedule from './components/Schedule'
 import ModelManager from './components/ModelManager'
-import APIManager from './components/APIManager'
 
 const tabs = [
   { id: 'overview', label: '概览', icon: '📊' },
@@ -72,10 +71,7 @@ function App() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <SystemStatus />
-              <APIManager />
-            </div>
+            <SystemStatus />
           </motion.div>
         )
       

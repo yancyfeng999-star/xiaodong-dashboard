@@ -159,8 +159,8 @@ const ModelManager: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="section-title">
-          <span className="mr-2">🤖</span>
-          模型管理
+          <span className="mr-2 text-xl">🤖</span>
+          <span className="section-title-text">模型管理</span>
         </h2>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />

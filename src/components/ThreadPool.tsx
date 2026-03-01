@@ -18,8 +18,8 @@ const ThreadPool: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="section-title !mb-0">
-          <span className="mr-2">🧵</span>
-          线程池
+          <span className="mr-2 text-xl">🧵</span>
+          <span className="section-title-text">线程池</span>
         </h2>
         <div className="flex items-center gap-2">
           <span className="text-xs text-emerald-400 font-semibold">4</span>

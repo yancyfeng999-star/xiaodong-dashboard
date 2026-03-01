@@ -43,8 +43,8 @@ const Dashboard: React.FC = () => {
       {/* Header */}
       <motion.div variants={itemVariants} className="mb-5">
         <h2 className="section-title">
-          <span className="mr-2">🎛️</span>
-          控制中心
+          <span className="mr-2 text-xl">🎛️</span>
+          <span className="section-title-text">控制中心</span>
         </h2>
         <p className="text-sm text-white/50 font-medium">实时监控 • 智能调度</p>
       </motion.div>
