@@ -12,64 +12,106 @@ interface TreeNode {
 }
 
 const MemoryFiles: React.FC = () => {
-  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(['root', 'core', 'logs']))
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(['root', 'knowledge']))
   const [lastUpdate, setLastUpdate] = useState(new Date())
 
-  // 动态生成文件树数据
+  // 本地知识库文件树
   const generateTreeData = (): TreeNode => {
     const now = new Date()
     const timeStr = now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
     
     return {
       id: 'root',
-      name: 'memory/',
+      name: 'workspace/',
       type: 'folder',
-      size: `${(73 + Math.random() * 5).toFixed(0)}KB`,
+      size: '156KB',
       lastModified: '刚刚',
       children: [
         {
-          id: 'core',
-          name: '核心文件',
+          id: 'knowledge',
+          name: 'knowledge-vault/ (本地知识库)',
           type: 'folder',
           lastModified: timeStr,
           children: [
-            { id: 'memory', name: 'MEMORY.md', type: 'file', size: '45KB', desc: '长期记忆与核心决策', lastModified: timeStr },
-            { id: 'soul', name: 'SOUL.md', type: 'file', size: '9KB', desc: '身份与价值观', lastModified: '今天' },
-            { id: 'identity', name: 'IDENTITY.md', type: 'file', size: '3KB', desc: '自我介绍', lastModified: '今天' },
+            {
+              id: 'inbox',
+              name: '📋 00-Inbox/',
+              type: 'folder',
+              lastModified: timeStr,
+              children: [
+                { id: 'inbox-readme', name: 'README.md', type: 'file', size: '2KB', desc: '收件箱说明', lastModified: timeStr },
+              ]
+            },
+            {
+              id: 'memory',
+              name: '🧠 01-Memory/',
+              type: 'folder',
+              lastModified: timeStr,
+              children: [
+                { 
+                  id: 'memory-core', 
+                  name: 'core/', 
+                  type: 'folder', 
+                  lastModified: timeStr,
+                  children: [
+                    { id: 'identity', name: 'identity.md', type: 'file', size: '3KB', desc: '核心身份记忆', lastModified: timeStr },
+                    { id: 'values', name: 'values.md', type: 'file', size: '2KB', desc: '价值观', lastModified: '今天' },
+                    { id: 'goals', name: 'goals.md', type: 'file', size: '4KB', desc: '目标规划', lastModified: '今天' },
+                  ]
+                },
+                { 
+                  id: 'memory-daily', 
+                  name: 'daily/', 
+                  type: 'folder', 
+                  lastModified: timeStr,
+                  children: [
+                    { id: 'daily-0301', name: '2026-03-01.md', type: 'file', size: '8KB', desc: '今日记录（12个事件）', lastModified: timeStr },
+                  ]
+                },
+              ]
+            },
+            {
+              id: 'knowledge',
+              name: '📚 02-Knowledge/',
+              type: 'folder',
+              lastModified: '今天',
+              children: [
+                { id: 'skills', name: 'skills/', type: 'folder', lastModified: '今天' },
+                { id: 'tools', name: 'tools/', type: 'folder', lastModified: '今天' },
+                { id: 'ecommerce', name: 'ecommerce/', type: 'folder', lastModified: '今天' },
+              ]
+            },
+            {
+              id: 'connect',
+              name: '🔗 03-Connect/',
+              type: 'folder',
+              lastModified: timeStr,
+              children: [
+                { id: 'index', name: 'index.md', type: 'file', size: '5KB', desc: '知识图谱入口', lastModified: timeStr },
+              ]
+            },
+            {
+              id: 'data',
+              name: '📊 04-Data/',
+              type: 'folder',
+              lastModified: '今天',
+              children: [
+                { id: 'crawlers', name: 'crawlers/', type: 'folder', lastModified: '今天' },
+                { id: 'analytics', name: 'analytics/', type: 'folder', lastModified: '今天' },
+              ]
+            },
           ]
         },
         {
-          id: 'config',
-          name: '配置文件',
+          id: 'legacy',
+          name: 'legacy-memory/ (旧版记忆)',
           type: 'folder',
           lastModified: '今天',
           children: [
-            { id: 'agents', name: 'AGENTS.md', type: 'file', size: '13KB', desc: '工作空间指南', lastModified: '今天' },
-            { id: 'user', name: 'USER.md', type: 'file', size: '6KB', desc: '用户信息', lastModified: '昨天' },
-            { id: 'bootstrap', name: 'BOOTSTRAP.md', type: 'file', size: '2KB', desc: '初始化配置', lastModified: '3天前' },
-            { id: 'heartbeat', name: 'HEARTBEAT.md', type: 'file', size: '1KB', desc: '心跳任务配置', lastModified: '1小时前' },
-          ]
-        },
-        {
-          id: 'logs',
-          name: '每日日志',
-          type: 'folder',
-          lastModified: timeStr,
-          children: [
-            { id: 'log-0301', name: '2026-03-01.md', type: 'file', size: `${(16 + Math.random() * 2).toFixed(0)}KB`, desc: `${Math.floor(12 + Math.random() * 3)}个事件`, lastModified: timeStr },
-            { id: 'log-0228', name: '2026-02-28.md', type: 'file', size: '14KB', desc: '8个事件', lastModified: '昨天' },
-            { id: 'log-0227', name: '2026-02-27.md', type: 'file', size: '11KB', desc: '6个事件', lastModified: '2天前' },
-            { id: 'log-0226', name: '2026-02-26.md', type: 'file', size: '9KB', desc: '5个事件', lastModified: '3天前' },
-          ]
-        },
-        {
-          id: 'skills',
-          name: '技能记录',
-          type: 'folder',
-          lastModified: timeStr,
-          children: [
-            { id: 'skill-log', name: 'skill-installation-log.md', type: 'file', size: `${(15 + Math.random()).toFixed(1)}KB`, desc: '102个技能安装记录', lastModified: timeStr },
-            { id: 'skill-evolution', name: 'skill-evolution-log.md', type: 'file', size: '8KB', desc: '技能进化记录', lastModified: '今天' },
+            { id: 'memory-md', name: 'MEMORY.md', type: 'file', size: '45KB', desc: '长期记忆与核心决策', lastModified: '今天' },
+            { id: 'soul', name: 'SOUL.md', type: 'file', size: '9KB', desc: '身份与价值观', lastModified: '今天' },
+            { id: 'identity-old', name: 'IDENTITY.md', type: 'file', size: '3KB', desc: '自我介绍', lastModified: '今天' },
+            { id: 'daily-old', name: '2026-03-01.md', type: 'file', size: '16KB', desc: '旧版每日日志', lastModified: '今天' },
           ]
         },
       ]
@@ -159,7 +201,7 @@ const MemoryFiles: React.FC = () => {
   }
 
   const fileCount = countFiles(treeData)
-  const folderCount = countFolders(treeData) - 1 // 排除root
+  const folderCount = countFolders(treeData) - 1
 
   return (
     <motion.div 
@@ -182,8 +224,19 @@ const MemoryFiles: React.FC = () => {
         </div>
       </div>
 
+      {/* Local Storage Info */}
+      <div className="mb-3 p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-lg">
+        <div className="flex items-center gap-2">
+          <span className="text-emerald-400 text-xs">💾</span>
+          <span className="text-xs text-white/80">所有记忆存储在本地 Markdown 文件</span>
+        </div>
+        <div className="text-[10px] text-white/50 mt-1">
+          路径: /knowledge-vault/ | 工具: Obsidian + Logseq
+        </div>
+      </div>
+
       {/* File Tree */}
-      <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden max-h-[350px] overflow-y-auto">
+      <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden max-h-[320px] overflow-y-auto">
         {renderTree(treeData)}
       </div>
 
@@ -192,23 +245,38 @@ const MemoryFiles: React.FC = () => {
         <div className="grid grid-cols-3 gap-2 text-center">
           <div>
             <div className="text-lg font-bold text-white">{fileCount}</div>
-            <div className="text-[10px] text-white/50">文件</div>
+            <div className="text-[10px] text-white/50">Markdown文件</div>
           </div>
           <div>
             <div className="text-lg font-bold text-white">{folderCount}</div>
-            <div className="text-[10px] text-white/50">文件夹</div>
+            <div className="text-[10px] text-white/50">知识文件夹</div>
           </div>
           <div>
-            <div className="text-lg font-bold text-white">{treeData.size}</div>
-            <div className="text-[10px] text-white/50">总大小</div>
+            <div className="text-lg font-bold text-white">156KB</div>
+            <div className="text-[10px] text-white/50">本地存储</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Knowledge Base Tools */}
+      <div className="mt-3 pt-3 border-t border-white/10">
+        <div className="text-xs text-white/60 mb-2">知识库工具</div>
+        <div className="grid grid-cols-2 gap-2">
+          <div className="metric-card text-center p-2">
+            <div className="text-lg">💎</div>
+            <div className="text-[10px] text-white/60">Obsidian</div>
+          </div>
+          <div className="metric-card text-center p-2">
+            <div className="text-lg">🌳</div>
+            <div className="text-[10px] text-white/60">Logseq</div>
           </div>
         </div>
       </div>
 
       {/* Update Info */}
       <div className="mt-3 flex items-center justify-between text-[10px] text-white/40">
-        <span>文件状态每60秒自动更新</span>
-        <span>下次: {new Date(lastUpdate.getTime() + 60000).toLocaleTimeString('zh-CN')}</span>
+        <span>本地文件每60秒自动更新</span>
+        <span>完全离线存储</span>
       </div>
     </motion.div>
   )
