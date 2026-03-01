@@ -74,19 +74,13 @@ const Header: React.FC = () => {
             disabled={isRefreshing}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`flex items-center space-x-1 px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+            className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
               isRefreshing 
                 ? 'bg-white/10 text-white/50 cursor-not-allowed' 
                 : 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/25'
             }`}
           >
-            <motion.span
-              animate={isRefreshing ? { rotate: 360 } : { rotate: 0 }}
-              transition={{ duration: 1, repeat: isRefreshing ? Infinity : 0, ease: "linear" }}
-            >
-              🔄
-            </motion.span>
-            <span>{isRefreshing ? '刷新中...' : '刷新'}</span>
+            {isRefreshing ? '刷新中...' : '刷新'}
           </motion.button>
         </div>
       </div>

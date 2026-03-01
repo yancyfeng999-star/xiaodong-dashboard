@@ -41,8 +41,8 @@ const Dashboard: React.FC = () => {
           <div className="text-xl font-bold text-white">
             {currentTime.toLocaleTimeString('zh-CN', { hour12: false })}
           </div>
-          <div className="text-xs text-white/50">
-            {currentTime.toLocaleDateString('zh-CN')}
+          <div className="text-xs text-white/70">
+            {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
           </div>
         </div>
       </div>
