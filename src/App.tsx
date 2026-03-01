@@ -9,6 +9,7 @@ import KnowledgeBase from './components/KnowledgeBase'
 import MemoryFiles from './components/MemoryFiles'
 import KnowledgeContent from './components/KnowledgeContent'
 import Schedule from './components/Schedule'
+import APIManager from './components/APIManager'
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             {/* Right Column */}
             <div className="space-y-4">
               <SystemStatus />
+              <APIManager />
               <KnowledgeBase />
               <KnowledgeContent />
               <MemoryFiles />
