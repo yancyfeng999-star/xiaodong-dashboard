@@ -34,12 +34,12 @@ const SystemStatus: React.FC = () => {
       color: 'from-purple-400 to-purple-500'
     },
     { 
-      label: '网络', 
-      used: 28, 
+      label: '带宽', 
+      used: 45, 
       total: 100,
-      unit: 'ms',
-      usedVal: '28ms',
-      freeVal: '72ms',
+      unit: '%',
+      usedVal: '45%',
+      freeVal: '55%',
       color: 'from-amber-400 to-orange-500'
     },
   ]
@@ -156,6 +156,25 @@ const SystemStatus: React.FC = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+      </div>
+
+      {/* Network Status */}
+      <div className="mt-3 pt-3 border-t border-white/10">
+        <div className="text-label mb-2">网络状态</div>
+        <div className="grid grid-cols-3 gap-2">
+          <div className="metric-card text-center">
+            <div className="text-sm font-bold text-white">28ms</div>
+            <div className="text-[10px] text-white/50">延迟</div>
+          </div>
+          <div className="metric-card text-center">
+            <div className="text-sm font-bold text-emerald-400">↓ 12.5MB</div>
+            <div className="text-[10px] text-white/50">下载</div>
+          </div>
+          <div className="metric-card text-center">
+            <div className="text-sm font-bold text-blue-400">↑ 3.2MB</div>
+            <div className="text-[10px] text-white/50">上传</div>
+          </div>
         </div>
       </div>
 
