@@ -6,6 +6,7 @@ import ThreadPool from './components/ThreadPool'
 import TaskQueue from './components/TaskQueue'
 import DataMetrics from './components/DataMetrics'
 import KnowledgeBase from './components/KnowledgeBase'
+import MemoryFiles from './components/MemoryFiles'
 import Schedule from './components/Schedule'
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <div className="space-y-4">
               <SystemStatus />
               <KnowledgeBase />
+              <MemoryFiles />
             </div>
           </div>
         </main>

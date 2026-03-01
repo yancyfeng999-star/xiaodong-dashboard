@@ -2,44 +2,22 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 const KnowledgeBase: React.FC = () => {
-  // 实际技能列表 - 15个
+  // 实际安装的11个技能
   const skills = [
-    { name: 'find-skills', category: '工具', desc: '技能发现' },
-    { name: 'docs-cog', category: '文档', desc: '文档处理' },
-    { name: 'skill-creator', category: '开发', desc: '技能创建' },
-    { name: 'frontend-design', category: '设计', desc: '前端设计' },
-    { name: 'code-simplifier', category: '开发', desc: '代码简化' },
-    { name: 'parallel_tools', category: '优化', desc: '并行处理' },
-    { name: 'web-design', category: '设计', desc: '网页设计' },
-    { name: 'data-viz', category: '数据', desc: '数据可视化' },
-    { name: 'kpi-dashboard', category: '设计', desc: 'KPI仪表板' },
-    { name: 'apple-notes', category: '工具', desc: 'Apple笔记' },
-    { name: 'content-audit', category: '分析', desc: '内容审计' },
-    { name: 'web-search', category: '工具', desc: '网络搜索' },
-    { name: 'web-fetch', category: '工具', desc: '网页获取' },
-    { name: 'browser-control', category: '工具', desc: '浏览器控制' },
-    { name: 'memory-search', category: '工具', desc: '记忆搜索' },
+    { name: 'find-skills', category: '发现', desc: '技能发现工具' },
+    { name: 'docs-cog', category: '文档', desc: '文档处理工具' },
+    { name: 'skill-creator', category: '开发', desc: '技能创建工具' },
+    { name: 'frontend-design', category: '设计', desc: '前端设计工具' },
+    { name: 'code-simplifier', category: '开发', desc: '代码简化工具' },
+    { name: 'parallel_tools', category: '优化', desc: '并行任务工具' },
+    { name: 'web-design-guidelines', category: '设计', desc: '网页设计指南' },
+    { name: 'data-visualization', category: '数据', desc: '数据可视化' },
+    { name: 'kpi-dashboard-design', category: '设计', desc: 'KPI仪表板' },
+    { name: 'apple-notes', category: '工具', desc: 'Apple笔记管理' },
+    { name: 'content-quality-auditor', category: '分析', desc: '内容质量审计' },
   ]
 
-  const memoryFiles = [
-    { name: 'MEMORY.md', size: '45KB', type: '核心' },
-    { name: 'AGENTS.md', size: '13KB', type: '配置' },
-    { name: 'SOUL.md', size: '9KB', type: '核心' },
-    { name: 'USER.md', size: '6KB', type: '配置' },
-  ]
-
-  const getCategoryColor = (cat: string) => {
-    const colors: {[key: string]: string} = {
-      '工具': 'bg-blue-500/20 text-blue-200 border-blue-500/30',
-      '文档': 'bg-amber-500/20 text-amber-200 border-amber-500/30',
-      '开发': 'bg-emerald-500/20 text-emerald-200 border-emerald-500/30',
-      '设计': 'bg-purple-500/20 text-purple-200 border-purple-500/30',
-      '优化': 'bg-cyan-500/20 text-cyan-200 border-cyan-500/30',
-      '数据': 'bg-pink-500/20 text-pink-200 border-pink-500/30',
-      '分析': 'bg-orange-500/20 text-orange-200 border-orange-500/30',
-    }
-    return colors[cat] || 'bg-gray-500/20 text-gray-200 border-gray-500/30'
-  }
+  const categories = ['发现', '文档', '开发', '设计', '优化', '数据', '工具', '分析']
 
   return (
     <motion.div 
@@ -48,78 +26,65 @@ const KnowledgeBase: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="card"
     >
-      {/* Header */}
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-bold text-white">🧠 知识库</h2>
-        <div className="flex items-center space-x-2">
-          <span className="text-xs text-white/60">15技能</span>
-          <div className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></div>
-        </div>
+        <h2 className="text-base font-bold text-white">🎯 技能库</h2>
+        <span className="text-xs text-white/60">11个技能</span>
+      </div>
+
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-1 mb-3">
+        <span className="px-2 py-0.5 bg-white/20 text-white text-[10px] rounded-full">全部</span>
+        {categories.map((cat, i) => (
+          <span key={i} className="px-2 py-0.5 bg-white/5 text-white/60 text-[10px] rounded-full hover:bg-white/10 cursor-pointer">
+            {cat}
+          </span>
+        ))}
       </div>
 
       {/* Skills Grid */}
-      <div className="mb-4">
-        <div className="text-label mb-2">已安装技能</div>
-        <div className="grid grid-cols-3 gap-2">
-          {skills.map((skill, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.2, delay: index * 0.02 }}
-              className="skill-card cursor-pointer"
-              title={`${skill.name}: ${skill.desc}`}
-            >
-              <div className={`text-[10px] px-1.5 py-0.5 rounded inline-block mb-1 border ${getCategoryColor(skill.category)}`}>
-                {skill.category}
-              </div>
-              <div className="text-xs font-medium text-white truncate">{skill.name}</div>
-              <div className="text-[10px] text-white/50 truncate">{skill.desc}</div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Memory Files */}
-      <div className="mb-3">
-        <div className="text-label mb-2">记忆文件</div>
-        <div className="grid grid-cols-2 gap-2">
-          {memoryFiles.map((file, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.2 + index * 0.05 }}
-              className="metric-card flex items-center justify-between"
-            >
-              <div className="flex items-center space-x-2">
-                <span className="text-sm">📄</span>
-                <div>
-                  <div className="text-xs font-medium text-white">{file.name}</div>
-                  <div className="text-[10px] text-white/50">{file.type}</div>
-                </div>
-              </div>
-              <span className="text-xs text-white/60">{file.size}</span>
-            </motion.div>
-          ))}
-        </div>
+      <div className="grid grid-cols-2 gap-2">
+        {skills.map((skill, index) => (
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.2, delay: index * 0.03 }}
+            className="p-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all cursor-pointer group"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-medium text-white truncate group-hover:text-blue-200 transition-colors">
+                {skill.name}
+              </span>
+              <div className={`w-1.5 h-1.5 rounded-full ${
+                skill.category === '开发' ? 'bg-emerald-400' :
+                skill.category === '设计' ? 'bg-purple-400' :
+                skill.category === '工具' ? 'bg-blue-400' :
+                skill.category === '数据' ? 'bg-pink-400' :
+                skill.category === '分析' ? 'bg-orange-400' :
+                'bg-gray-400'
+              }`}></div>
+            </div>
+            <div className="text-[10px] text-white/50 truncate">{skill.desc}</div>
+            <div className="mt-1 text-[10px] px-1.5 py-0.5 bg-white/10 rounded inline-block text-white/70">
+              {skill.category}
+            </div>
+          </motion.div>
+        ))}
       </div>
 
       {/* Stats */}
-      <div className="pt-3 border-t border-white/10">
-        <div className="grid grid-cols-3 gap-2 text-center">
-          <div className="metric-card">
-            <div className="metric-value text-lg">15</div>
-            <div className="metric-label">技能</div>
-          </div>
-          <div className="metric-card">
-            <div className="metric-value text-lg">4</div>
-            <div className="metric-label">记忆文件</div>
-          </div>
-          <div className="metric-card">
-            <div className="metric-value text-lg">73KB</div>
-            <div className="metric-label">总大小</div>
-          </div>
+      <div className="mt-3 pt-3 border-t border-white/10 grid grid-cols-3 gap-2 text-center">
+        <div>
+          <div className="text-lg font-bold text-white">11</div>
+          <div className="text-[10px] text-white/50">总技能</div>
+        </div>
+        <div>
+          <div className="text-lg font-bold text-emerald-400">8</div>
+          <div className="text-[10px] text-white/50">分类</div>
+        </div>
+        <div>
+          <div className="text-lg font-bold text-blue-400">100%</div>
+          <div className="text-[10px] text-white/50">可用</div>
         </div>
       </div>
     </motion.div>
