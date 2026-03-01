@@ -1,21 +1,115 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const MemoryFiles: React.FC = () => {
-  const files = [
-    { name: 'MEMORY.md', size: '45KB', type: '核心', desc: '长期记忆与核心决策' },
-    { name: 'AGENTS.md', size: '13KB', type: '配置', desc: '工作空间指南' },
-    { name: 'SOUL.md', size: '9KB', type: '核心', desc: '身份与价值观' },
-    { name: 'USER.md', size: '6KB', type: '配置', desc: '用户信息' },
-    { name: 'BOOTSTRAP.md', size: '2KB', type: '启动', desc: '初始化配置' },
-    { name: 'HEARTBEAT.md', size: '1KB', type: '定时', desc: '心跳任务配置' },
-  ]
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(['root', 'core', 'logs']))
 
-  const dailyLogs = [
-    { date: '2026-03-01', size: '16KB', events: 12 },
-    { date: '2026-02-28', size: '14KB', events: 8 },
-    { date: '2026-02-27', size: '11KB', events: 6 },
-  ]
+  const toggleNode = (nodeId: string) => {
+    const newExpanded = new Set(expandedNodes)
+    if (newExpanded.has(nodeId)) {
+      newExpanded.delete(nodeId)
+    } else {
+      newExpanded.add(nodeId)
+    }
+    setExpandedNodes(newExpanded)
+  }
+
+  const treeData = {
+    id: 'root',
+    name: 'memory/',
+    type: 'folder',
+    size: '73KB',
+    children: [
+      {
+        id: 'core',
+        name: '核心文件',
+        type: 'folder',
+        children: [
+          { id: 'memory', name: 'MEMORY.md', type: 'file', size: '45KB', desc: '长期记忆与核心决策' },
+          { id: 'soul', name: 'SOUL.md', type: 'file', size: '9KB', desc: '身份与价值观' },
+        ]
+      },
+      {
+        id: 'config',
+        name: '配置文件',
+        type: 'folder',
+        children: [
+          { id: 'agents', name: 'AGENTS.md', type: 'file', size: '13KB', desc: '工作空间指南' },
+          { id: 'user', name: 'USER.md', type: 'file', size: '6KB', desc: '用户信息' },
+          { id: 'bootstrap', name: 'BOOTSTRAP.md', type: 'file', size: '2KB', desc: '初始化配置' },
+          { id: 'heartbeat', name: 'HEARTBEAT.md', type: 'file', size: '1KB', desc: '心跳任务配置' },
+        ]
+      },
+      {
+        id: 'logs',
+        name: '每日日志',
+        type: 'folder',
+        children: [
+          { id: 'log-0301', name: '2026-03-01.md', type: 'file', size: '16KB', desc: '12个事件' },
+          { id: 'log-0228', name: '2026-02-28.md', type: 'file', size: '14KB', desc: '8个事件' },
+          { id: 'log-0227', name: '2026-02-27.md', type: 'file', size: '11KB', desc: '6个事件' },
+          { id: 'log-0226', name: '2026-02-26.md', type: 'file', size: '9KB', desc: '5个事件' },
+          { id: 'log-0225', name: '2026-02-25.md', type: 'file', size: '8KB', desc: '4个事件' },
+        ]
+      },
+    ]
+  }
+
+  const renderTree = (node: any, depth = 0) => {
+    const isExpanded = expandedNodes.has(node.id)
+    const hasChildren = node.children && node.children.length > 0
+
+    return (
+      <div key={node.id}>
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.2, delay: depth * 0.05 }}
+          className={`flex items-center py-1.5 px-2 hover:bg-white/5 cursor-pointer transition-colors ${
+            depth > 0 ? 'ml-4 border-l border-white/10' : ''
+          }`}
+          style={{ paddingLeft: `${depth * 12 + 8}px` }}
+          onClick={() => hasChildren && toggleNode(node.id)}
+        >
+          {/* Expand/Collapse Icon */}
+          {hasChildren ? (
+            <span className="w-4 h-4 flex items-center justify-center text-white/50 mr-1">
+              {isExpanded ? '▼' : '▶'}
+            </span>
+          ) : (
+            <span className="w-4 mr-1"></span>
+          )}
+
+          {/* Icon */}
+          <span className="mr-2">
+            {node.type === 'folder' ? (isExpanded ? '📂' : '📁') : '📄'}
+          </span>
+
+          {/* Name */}
+          <div className="flex-1 min-w-0">
+            <span className={`text-xs truncate ${node.type === 'folder' ? 'font-medium text-white' : 'text-white/80'}`}>
+              {node.name}
+            </span>
+            {node.desc && (
+              <span className="text-[10px] text-white/40 ml-2 truncate">{node.desc}</span>
+            )}
+          </div>
+
+          {/* Size */}
+          {node.size && (
+            <span className="text-[10px] text-white/50 ml-2">{node.size}</span>
+          )}
+        </motion.div>
+
+        {/* Children */}
+        {hasChildren && isExpanded && (
+          <div>
+            {node.children.map((child: any) => renderTree(child, depth + 1))}
+          </div>
+        )}
+      </div>
+    )
+  }
 
   return (
     <motion.div 
@@ -24,53 +118,30 @@ const MemoryFiles: React.FC = () => {
       transition={{ duration: 0.5 }}
       className="card"
     >
+      {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-base font-bold text-white">📁 记忆文件</h2>
-        <span className="text-xs text-white/60">6文件</span>
+        <span className="text-xs text-white/60">{treeData.size}</span>
       </div>
 
-      {/* Core Files */}
-      <div className="space-y-1.5 mb-3">
-        {files.map((file, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: 10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.2, delay: index * 0.05 }}
-            className="flex items-center justify-between p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors"
-          >
-            <div className="flex items-center space-x-2">
-              <span className="text-sm">📄</span>
-              <div>
-                <div className="text-xs font-medium text-white">{file.name}</div>
-                <div className="text-[10px] text-white/50">{file.desc}</div>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-[10px] text-white/60">{file.size}</div>
-              <div className={`text-[10px] px-1.5 py-0.5 rounded ${
-                file.type === '核心' ? 'bg-red-500/20 text-red-200' :
-                file.type === '配置' ? 'bg-blue-500/20 text-blue-200' :
-                'bg-gray-500/20 text-gray-200'
-              }`}>{file.type}</div>
-            </div>
-          </motion.div>
-        ))}
+      {/* Tree View */}
+      <div className="max-h-[280px] overflow-y-auto rounded-lg border border-white/10 bg-white/5">
+        {renderTree(treeData)}
       </div>
 
-      {/* Daily Logs */}
-      <div className="pt-3 border-t border-white/10">
-        <div className="text-label mb-2">每日日志</div>
-        <div className="space-y-1">
-          {dailyLogs.map((log, index) => (
-            <div key={index} className="flex items-center justify-between text-xs py-1">
-              <span className="text-white/70">{log.date}</span>
-              <div className="flex items-center space-x-3">
-                <span className="text-white/50">{log.events} 事件</span>
-                <span className="text-white/40">{log.size}</span>
-              </div>
-            </div>
-          ))}
+      {/* Stats */}
+      <div className="mt-3 pt-3 border-t border-white/10 grid grid-cols-3 gap-2 text-center">
+        <div className="metric-card">
+          <div className="text-lg font-bold text-white">11</div>
+          <div className="text-[10px] text-white/50">总文件</div>
+        </div>
+        <div className="metric-card">
+          <div className="text-lg font-bold text-blue-400">3</div>
+          <div className="text-[10px] text-white/50">文件夹</div>
+        </div>
+        <div className="metric-card">
+          <div className="text-lg font-bold text-emerald-400">8</div>
+          <div className="text-[10px] text-white/50">文档</div>
         </div>
       </div>
     </motion.div>

@@ -2,39 +2,144 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const KnowledgeBase: React.FC = () => {
-  const [filter, setFilter] = useState('全部')
-  
-  // 实际安装的11个技能
-  const skills = [
-    { name: 'find-skills', category: '发现', desc: '技能发现工具', status: 'active', version: '1.0.0' },
-    { name: 'docs-cog', category: '文档', desc: '文档处理工具', status: 'active', version: '1.2.0' },
-    { name: 'skill-creator', category: '开发', desc: '技能创建工具', status: 'active', version: '2.1.0' },
-    { name: 'frontend-design', category: '设计', desc: '前端设计工具', status: 'active', version: '3.0.0' },
-    { name: 'code-simplifier', category: '开发', desc: '代码简化工具', status: 'active', version: '1.0.0' },
-    { name: 'parallel_tools', category: '优化', desc: '并行任务工具', status: 'active', version: '1.0.0' },
-    { name: 'web-design-guidelines', category: '设计', desc: '网页设计指南', status: 'active', version: '2.0.0' },
-    { name: 'data-visualization', category: '数据', desc: '数据可视化工具', status: 'active', version: '1.5.0' },
-    { name: 'kpi-dashboard-design', category: '设计', desc: 'KPI仪表板设计', status: 'active', version: '1.2.0' },
-    { name: 'apple-notes', category: '工具', desc: 'Apple笔记管理', status: 'active', version: '1.0.0' },
-    { name: 'content-quality-auditor', category: '分析', desc: '内容质量审计', status: 'active', version: '1.0.0' },
-  ]
+  const [expandedNodes, setExpandedNodes] = useState<Set<string>>(new Set(['root', 'dev', 'design']))
 
-  const categories = ['全部', '开发', '设计', '工具', '数据', '分析', '文档', '发现', '优化']
-
-  const filteredSkills = filter === '全部' ? skills : skills.filter(s => s.category === filter)
-
-  const getCategoryColor = (cat: string) => {
-    const colors: {[key: string]: string} = {
-      '开发': 'text-emerald-400 bg-emerald-500/20',
-      '设计': 'text-purple-400 bg-purple-500/20',
-      '工具': 'text-blue-400 bg-blue-500/20',
-      '数据': 'text-pink-400 bg-pink-500/20',
-      '分析': 'text-orange-400 bg-orange-500/20',
-      '文档': 'text-amber-400 bg-amber-500/20',
-      '发现': 'text-cyan-400 bg-cyan-500/20',
-      '优化': 'text-indigo-400 bg-indigo-500/20',
+  const toggleNode = (nodeId: string) => {
+    const newExpanded = new Set(expandedNodes)
+    if (newExpanded.has(nodeId)) {
+      newExpanded.delete(nodeId)
+    } else {
+      newExpanded.add(nodeId)
     }
-    return colors[cat] || 'text-gray-400 bg-gray-500/20'
+    setExpandedNodes(newExpanded)
+  }
+
+  const treeData = {
+    id: 'root',
+    name: 'skills/',
+    type: 'folder',
+    count: '11个技能',
+    children: [
+      {
+        id: 'dev',
+        name: '开发工具',
+        type: 'folder',
+        count: '3个',
+        children: [
+          { id: 'skill-creator', name: 'skill-creator', type: 'skill', version: 'v2.1.0', status: 'active', desc: '技能创建工具' },
+          { id: 'code-simplifier', name: 'code-simplifier', type: 'skill', version: 'v1.0.0', status: 'active', desc: '代码简化工具' },
+          { id: 'parallel_tools', name: 'parallel_tools', type: 'skill', version: 'v1.0.0', status: 'active', desc: '并行任务工具' },
+        ]
+      },
+      {
+        id: 'design',
+        name: '设计工具',
+        type: 'folder',
+        count: '3个',
+        children: [
+          { id: 'frontend-design', name: 'frontend-design', type: 'skill', version: 'v3.0.0', status: 'active', desc: '前端设计工具' },
+          { id: 'web-design-guidelines', name: 'web-design-guidelines', type: 'skill', version: 'v2.0.0', status: 'active', desc: '网页设计指南' },
+          { id: 'kpi-dashboard-design', name: 'kpi-dashboard-design', type: 'skill', version: 'v1.2.0', status: 'active', desc: 'KPI仪表板设计' },
+        ]
+      },
+      {
+        id: 'utils',
+        name: '实用工具',
+        type: 'folder',
+        count: '2个',
+        children: [
+          { id: 'find-skills', name: 'find-skills', type: 'skill', version: 'v1.0.0', status: 'active', desc: '技能发现工具' },
+          { id: 'apple-notes', name: 'apple-notes', type: 'skill', version: 'v1.0.0', status: 'active', desc: 'Apple笔记管理' },
+        ]
+      },
+      {
+        id: 'data',
+        name: '数据处理',
+        type: 'folder',
+        count: '2个',
+        children: [
+          { id: 'data-visualization', name: 'data-visualization', type: 'skill', version: 'v1.5.0', status: 'active', desc: '数据可视化工具' },
+          { id: 'content-quality-auditor', name: 'content-quality-auditor', type: 'skill', version: 'v1.0.0', status: 'active', desc: '内容质量审计' },
+        ]
+      },
+      {
+        id: 'doc',
+        name: '文档处理',
+        type: 'folder',
+        count: '1个',
+        children: [
+          { id: 'docs-cog', name: 'docs-cog', type: 'skill', version: 'v1.2.0', status: 'active', desc: '文档处理工具' },
+        ]
+      },
+    ]
+  }
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'active': return <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+      case 'pending': return <span className="w-1.5 h-1.5 bg-amber-400 rounded-full"></span>
+      default: return <span className="w-1.5 h-1.5 bg-gray-400 rounded-full"></span>
+    }
+  }
+
+  const renderTree = (node: any, depth = 0) => {
+    const isExpanded = expandedNodes.has(node.id)
+    const hasChildren = node.children && node.children.length > 0
+
+    return (
+      <div key={node.id}>
+        <motion.div
+          initial={{ opacity: 0, x: -10 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.2, delay: depth * 0.05 }}
+          className={`flex items-center py-1.5 px-2 hover:bg-white/5 cursor-pointer transition-colors ${
+            depth > 0 ? 'ml-4 border-l border-white/10' : ''
+          }`}
+          style={{ paddingLeft: `${depth * 12 + 8}px` }}
+          onClick={() => hasChildren && toggleNode(node.id)}
+        >
+          {/* Expand/Collapse Icon */}
+          {hasChildren ? (
+            <span className="w-4 h-4 flex items-center justify-center text-white/50 mr-1">
+              {isExpanded ? '▼' : '▶'}
+            </span>
+          ) : (
+            <span className="w-4 mr-1"></span>
+          )}
+
+          {/* Icon */}
+          <span className="mr-2">
+            {node.type === 'folder' ? (isExpanded ? '📂' : '📁') : '🎯'}
+          </span>
+
+          {/* Name */}
+          <div className="flex-1 min-w-0">
+            <span className={`text-xs truncate ${node.type === 'folder' ? 'font-medium text-white' : 'text-white/80'}`}>
+              {node.name}
+            </span>
+            {node.desc && !hasChildren && (
+              <span className="text-[10px] text-white/40 ml-2 truncate">{node.desc}</span>
+            )}
+          </div>
+
+          {/* Count/Version/Status */}
+          {hasChildren && node.count && (
+            <span className="text-[10px] text-white/50 ml-2">{node.count}</span>
+          )}
+          {!hasChildren && node.version && (
+            <span className="text-[10px] text-white/40 ml-2">{node.version}</span>
+          )}
+          {!hasChildren && getStatusIcon(node.status)}
+        </motion.div>
+
+        {/* Children */}
+        {hasChildren && isExpanded && (
+          <div>
+            {node.children.map((child: any) => renderTree(child, depth + 1))}
+          </div>
+        )}
+      </div>
+    )
   }
 
   return (
@@ -47,85 +152,30 @@ const KnowledgeBase: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-base font-bold text-white">🎯 技能库</h2>
-        <span className="text-xs text-white/60">{filteredSkills.length}/11 技能</span>
+        <span className="text-xs text-white/60">{treeData.count}</span>
       </div>
 
-      {/* Filter Tabs */}
-      <div className="flex flex-wrap gap-1 mb-3">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={`px-2 py-1 text-[10px] rounded-full transition-all ${
-              filter === cat 
-                ? 'bg-white/30 text-white' 
-                : 'bg-white/5 text-white/60 hover:bg-white/10'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
+      {/* Tree View */}
+      <div className="max-h-[240px] overflow-y-auto rounded-lg border border-white/10 bg-white/5">
+        {renderTree(treeData)}
       </div>
 
-      {/* Skills Table */}
-      <div className="overflow-hidden rounded-lg border border-white/10">
-        {/* Table Header */}
-        <div className="grid grid-cols-12 gap-2 px-3 py-2 bg-white/10 text-[10px] text-white/60 font-medium">
-          <div className="col-span-4">技能名称</div>
-          <div className="col-span-2">分类</div>
-          <div className="col-span-4">描述</div>
-          <div className="col-span-2 text-right">状态</div>
-        </div>
-        
-        {/* Table Body - Scrollable */}
-        <div className="max-h-[200px] overflow-y-auto">
-          {filteredSkills.map((skill, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2, delay: index * 0.03 }}
-              className="grid grid-cols-12 gap-2 px-3 py-2 border-b border-white/5 hover:bg-white/5 transition-colors items-center"
-            >
-              <div className="col-span-4">
-                <div className="text-xs font-medium text-white truncate">{skill.name}</div>
-                <div className="text-[10px] text-white/40">v{skill.version}</div>
-              </div>
-              <div className="col-span-2">
-                <span className={`text-[10px] px-1.5 py-0.5 rounded ${getCategoryColor(skill.category)}`}>
-                  {skill.category}
-                </span>
-              </div>
-              <div className="col-span-4">
-                <div className="text-[10px] text-white/60 truncate">{skill.desc}</div>
-              </div>
-              <div className="col-span-2 text-right">
-                <span className="flex items-center justify-end space-x-1">
-                  <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
-                  <span className="text-[10px] text-emerald-400">运行中</span>
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Stats Summary */}
+      {/* Stats */}
       <div className="mt-3 pt-3 border-t border-white/10 grid grid-cols-4 gap-2 text-center">
         <div className="metric-card">
-          <div className="text-lg font-bold text-white">11</div>
+          <div className="text-base font-bold text-white">11</div>
           <div className="text-[10px] text-white/50">总技能</div>
         </div>
         <div className="metric-card">
-          <div className="text-lg font-bold text-emerald-400">8</div>
+          <div className="text-base font-bold text-blue-400">5</div>
           <div className="text-[10px] text-white/50">分类</div>
         </div>
         <div className="metric-card">
-          <div className="text-lg font-bold text-blue-400">11</div>
+          <div className="text-base font-bold text-emerald-400">11</div>
           <div className="text-[10px] text-white/50">运行中</div>
         </div>
         <div className="metric-card">
-          <div className="text-lg font-bold text-purple-400">0</div>
+          <div className="text-base font-bold text-purple-400">0</div>
           <div className="text-[10px] text-white/50">待更新</div>
         </div>
       </div>

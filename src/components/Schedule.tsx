@@ -51,11 +51,7 @@ const Schedule: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-base font-bold text-white">📅 任务调度</h2>
-        <div className="flex space-x-2">
-          <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-200 text-xs rounded">日</span>
-          <span className="px-2 py-0.5 bg-white/10 text-white/60 text-xs rounded">周</span>
-          <span className="px-2 py-0.5 bg-white/10 text-white/60 text-xs rounded">月</span>
-        </div>
+        <span className="text-xs text-white/60">日/周/月视图</span>
       </div>
 
       {/* Today's Summary */}
