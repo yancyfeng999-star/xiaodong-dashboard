@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion'
+import React, { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import Dashboard from './components/Dashboard'
 import Header from './components/Header'
 import SystemStatus from './components/SystemStatus'
@@ -11,7 +12,98 @@ import KnowledgeContent from './components/KnowledgeContent'
 import Schedule from './components/Schedule'
 import ModelManager from './components/ModelManager'
 
+const tabs = [
+  { id: 'overview', label: '概览', icon: '📊' },
+  { id: 'data', label: '数据中心', icon: '📈' },
+  { id: 'system', label: '系统管理', icon: '⚙️' },
+  { id: 'knowledge', label: '知识库', icon: '📚' },
+]
+
 function App() {
+  const [activeTab, setActiveTab] = useState('overview')
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'overview':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            {/* 概览页 - 核心内容 */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+              <div className="lg:col-span-2 space-y-4">
+                <Dashboard />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <ThreadPool />
+                  <TaskQueue />
+                </div>
+                <Schedule />
+              </div>
+              <div className="space-y-4">
+                <SystemStatus />
+              </div>
+            </div>
+          </motion.div>
+        )
+      
+      case 'data':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            {/* 数据中心页 */}
+            <DataMetrics />
+          </motion.div>
+        )
+      
+      case 'system':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            {/* 系统管理页 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <SystemStatus />
+              <ModelManager />
+            </div>
+          </motion.div>
+        )
+      
+      case 'knowledge':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
+            {/* 知识库页 */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <KnowledgeBase />
+              <KnowledgeContent />
+              <MemoryFiles />
+            </div>
+          </motion.div>
+        )
+      
+      default:
+        return null
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-700 to-slate-800">
       {/* Subtle Background */}
@@ -22,30 +114,31 @@ function App() {
       <div className="relative z-10">
         <Header />
         
-        <main className="container mx-auto px-3 py-4 max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* Left Column */}
-            <div className="lg:col-span-2 space-y-4">
-              <Dashboard />
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ThreadPool />
-                <TaskQueue />
-              </div>
-              
-              <Schedule />
-              <DataMetrics />
-            </div>
-            
-            {/* Right Column */}
-            <div className="space-y-4">
-              <SystemStatus />
-              <ModelManager />
-              <KnowledgeBase />
-              <KnowledgeContent />
-              <MemoryFiles />
-            </div>
+        {/* Tab Navigation */}
+        <div className="container mx-auto px-3 max-w-7xl mt-4">
+          <div className="flex space-x-1 bg-white/5 backdrop-blur-sm rounded-xl p-1 border border-white/10">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex-1 flex items-center justify-center space-x-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                  activeTab === tab.id
+                    ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/25'
+                    : 'text-white/60 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <span>{tab.icon}</span>
+                <span>{tab.label}</span>
+              </button>
+            ))}
           </div>
+        </div>
+        
+        {/* Tab Content */}
+        <main className="container mx-auto px-3 py-4 max-w-7xl">
+          <AnimatePresence mode="wait">
+            {renderTabContent()}
+          </AnimatePresence>
         </main>
         
         <footer className="mt-8 py-4 border-t border-white/5 text-center text-xs text-white/40">
