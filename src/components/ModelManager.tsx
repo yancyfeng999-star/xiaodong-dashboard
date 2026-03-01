@@ -198,7 +198,6 @@ const ModelManager: React.FC = () => {
   const activeCount = models.filter(m => m.status === 'active').length
   const localCount = models.filter(m => m.type === '本地').length
   const cloudCount = models.filter(m => m.type === '云端').length
-  const laozhangCount = models.filter(m => m.provider.includes('laozhang')).length
 
   return (
     <motion.div 
@@ -234,7 +233,7 @@ const ModelManager: React.FC = () => {
       </div>
 
       {/* Stats Summary */}
-      <div className="grid grid-cols-4 gap-2 mb-3">
+      <div className="grid grid-cols-3 gap-2 mb-3">
         <div className="metric-card text-center">
           <div className="text-base font-bold text-emerald-400">{activeCount}</div>
           <div className="text-[10px] text-white/50">使用中</div>
@@ -246,10 +245,6 @@ const ModelManager: React.FC = () => {
         <div className="metric-card text-center">
           <div className="text-base font-bold text-blue-400">{cloudCount}</div>
           <div className="text-[10px] text-white/50">云端</div>
-        </div>
-        <div className="metric-card text-center">
-          <div className="text-base font-bold text-amber-400">{laozhangCount}</div>
-          <div className="text-[10px] text-white/50">laozhang</div>
         </div>
       </div>
 
