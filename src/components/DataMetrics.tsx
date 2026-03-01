@@ -1,69 +1,104 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const DataMetrics: React.FC = () => {
-  // 详细数据统计
-  const dataStats = {
-    totalCrawled: 30247,
-    validData: 28456,
-    invalidData: 1791,
-    feishuSynced: 21580,
-    feishuPending: 6876,
+  const [lastUpdate, setLastUpdate] = useState(new Date())
+
+  // 动态生成数据统计（模拟实时增长）
+  const generateDataStats = () => {
+    const baseCrawled = 30247
+    const baseValid = 28456
+    const baseSynced = 21580
+    
+    // 根据当前时间计算增长量（每小时增加一些）
+    const hour = new Date().getHours()
+    const growth = hour * 50 // 每小时增加50条
+    
+    const totalCrawled = baseCrawled + growth + Math.floor(Math.random() * 20)
+    const validData = Math.floor(totalCrawled * 0.94) // 94%有效率
+    const invalidData = totalCrawled - validData
+    const feishuSynced = baseSynced + Math.floor(growth * 0.7)
+    const feishuPending = validData - feishuSynced
+    
+    return {
+      totalCrawled,
+      validData,
+      invalidData,
+      feishuSynced,
+      feishuPending
+    }
   }
 
-  // 平台详细数据
-  const platformData = [
-    { 
-      name: '亚马逊', 
-      icon: 'A', 
-      color: 'from-orange-500 to-amber-500',
-      crawled: 12547,
-      valid: 11892,
-      feishu: 9876,
-      growth: '+12%',
-      countries: ['US', 'UK', 'DE', 'JP']
-    },
-    { 
-      name: 'TikTok Shop', 
-      icon: 'TikTok', 
-      color: 'from-pink-500 to-rose-500',
-      crawled: 8542,
-      valid: 8123,
-      feishu: 6543,
-      growth: '+18%',
-      countries: ['US', 'UK', 'SG', 'ID']
-    },
-    { 
-      name: 'Shopee', 
-      icon: 'S', 
-      color: 'from-red-500 to-orange-500',
-      crawled: 9158,
-      valid: 8441,
-      feishu: 5161,
-      growth: '+8%',
-      countries: ['SG', 'MY', 'TH', 'VN', 'ID', 'PH']
-    },
-  ]
+  const [dataStats, setDataStats] = useState(generateDataStats())
 
-  // 覆盖的国家
-  const countries = [
-    { code: 'US', name: '美国', count: 21080, x: 20, y: 35 },
-    { code: 'UK', name: '英国', count: 8920, x: 45, y: 25 },
-    { code: 'DE', name: '德国', count: 6540, x: 48, y: 28 },
-    { code: 'JP', name: '日本', count: 4320, x: 82, y: 32 },
-    { code: 'SG', name: '新加坡', count: 12150, x: 75, y: 55 },
-    { code: 'MY', name: '马来西亚', count: 8760, x: 74, y: 58 },
-    { code: 'TH', name: '泰国', count: 7230, x: 73, y: 52 },
-    { code: 'VN', name: '越南', count: 5890, x: 76, y: 50 },
-    { code: 'ID', name: '印尼', count: 9870, x: 78, y: 62 },
-    { code: 'PH', name: '菲律宾', count: 4320, x: 80, y: 48 },
-  ]
+  // 动态生成平台数据
+  const generatePlatformData = () => {
+    const baseData = [
+      { name: '亚马逊', icon: 'A', color: 'from-orange-500 to-amber-500', baseCrawled: 12547, countries: ['US', 'UK', 'DE', 'JP'] },
+      { name: 'TikTok Shop', icon: 'TikTok', color: 'from-pink-500 to-rose-500', baseCrawled: 8542, countries: ['US', 'UK', 'SG', 'ID'] },
+      { name: 'Shopee', icon: 'S', color: 'from-red-500 to-orange-500', baseCrawled: 9158, countries: ['SG', 'MY', 'TH', 'VN', 'ID', 'PH'] },
+    ]
+    
+    return baseData.map(p => {
+      const growth = Math.floor(Math.random() * 30)
+      const crawled = p.baseCrawled + growth
+      const valid = Math.floor(crawled * (0.92 + Math.random() * 0.06))
+      const feishu = Math.floor(valid * (0.75 + Math.random() * 0.15))
+      
+      return {
+        ...p,
+        crawled,
+        valid,
+        feishu,
+        growth: `+${(Math.random() * 15 + 5).toFixed(0)}%`
+      }
+    })
+  }
 
-  const tasks = [
-    { name: '数据爬取', progress: 100, count: '30,247条' },
-    { name: '数据清洗', progress: 94, count: '28,456条有效' },
-    { name: '同步飞书', progress: 71, count: '21,580条' },
-    { name: '多维表格', progress: 65, count: '19,680条' },
+  const [platformData, setPlatformData] = useState(generatePlatformData())
+
+  // 动态生成国家数据
+  const generateCountryData = () => {
+    const baseCountries = [
+      { code: 'US', name: '美国', baseCount: 21080, x: 20, y: 35 },
+      { code: 'UK', name: '英国', baseCount: 8540, x: 45, y: 28 },
+      { code: 'DE', name: '德国', baseCount: 6230, x: 48, y: 32 },
+      { code: 'JP', name: '日本', baseCount: 7890, x: 85, y: 38 },
+      { code: 'SG', name: '新加坡', baseCount: 4560, x: 78, y: 58 },
+      { code: 'MY', name: '马来西亚', baseCount: 3890, x: 76, y: 62 },
+      { code: 'TH', name: '泰国', baseCount: 3240, x: 74, y: 55 },
+      { code: 'VN', name: '越南', baseCount: 2980, x: 76, y: 52 },
+      { code: 'ID', name: '印尼', baseCount: 5670, x: 80, y: 68 },
+      { code: 'PH', name: '菲律宾', baseCount: 2130, x: 82, y: 58 },
+    ]
+    
+    return baseCountries.map(c => ({
+      ...c,
+      count: c.baseCount + Math.floor(Math.random() * 50)
+    }))
+  }
+
+  const [countryData, setCountryData] = useState(generateCountryData())
+
+  // 每30秒更新一次数据
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDataStats(generateDataStats())
+      setPlatformData(generatePlatformData())
+      setCountryData(generateCountryData())
+      setLastUpdate(new Date())
+    }, 30000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // 处理流程进度（动态）
+  const processSteps = [
+    { name: '数据采集', status: 'running', progress: 100 },
+    { name: '数据清洗', status: 'running', progress: 100 },
+    { name: '数据验证', status: 'running', progress: 95 + Math.random() * 5 },
+    { name: '数据存储', status: 'running', progress: 90 + Math.random() * 10 },
+    { name: '飞书同步', status: 'running', progress: 75 + Math.random() * 15 },
   ]
 
   return (
@@ -75,153 +110,163 @@ const DataMetrics: React.FC = () => {
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-bold text-white">📊 数据中心</h2>
-        <span className="text-xs text-white/60">总数据: {dataStats.totalCrawled.toLocaleString()}条</span>
-      </div>
-
-      {/* Data Overview Cards */}
-      <div className="grid grid-cols-4 gap-2 mb-4">
-        <div className="metric-card text-center">
-          <div className="text-lg font-bold text-blue-400">{dataStats.totalCrawled.toLocaleString()}</div>
-          <div className="text-[10px] text-white/50">爬取总数</div>
-        </div>
-        <div className="metric-card text-center">
-          <div className="text-lg font-bold text-emerald-400">{dataStats.validData.toLocaleString()}</div>
-          <div className="text-[10px] text-white/50">有效数据</div>
-        </div>
-        <div className="metric-card text-center">
-          <div className="text-lg font-bold text-purple-400">{dataStats.feishuSynced.toLocaleString()}</div>
-          <div className="text-[10px] text-white/50">飞书同步</div>
-        </div>
-        <div className="metric-card text-center">
-          <div className="text-lg font-bold text-amber-400">{dataStats.feishuPending.toLocaleString()}</div>
-          <div className="text-[10px] text-white/50">待同步</div>
+        <h2 className="section-title">
+          <span className="mr-2 text-xl">📊</span>
+          <span className="section-title-text">数据中心</span>
+        </h2>
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-white/60">实时监控</span>
+          <span className="text-[10px] text-white/40">
+            更新: {lastUpdate.toLocaleTimeString('zh-CN', {hour:'2-digit', minute:'2-digit', second:'2-digit'})}
+          </span>
         </div>
       </div>
 
-      {/* World Map - Simplified */}
-      <div className="mb-4">
-        <div className="text-label mb-2">覆盖区域 (10个国家/地区)</div>
-        <div className="relative bg-slate-900/80 rounded-lg h-52 overflow-hidden border border-white/20">
-          {/* World Map Background */}
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/30 via-slate-900/50 to-slate-900/80"></div>
-          
-          {/* Grid lines */}
-          <div className="absolute inset-0 opacity-10">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={`h-${i}`} className="absolute w-full h-px bg-white/20" style={{ top: `${(i + 1) * 12}%` }}></div>
-            ))}
-            {Array.from({ length: 8 }).map((_, i) => (
-              <div key={`v-${i}`} className="absolute h-full w-px bg-white/20" style={{ left: `${(i + 1) * 12}%` }}></div>
-            ))}
-          </div>
-          
-          {/* Country Markers with Labels */}
-          {countries.map((country, index) => (
+      {/* Data Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
+        <motion.div whileHover={{ scale: 1.02 }} className="metric-card text-center">
+          <div className="metric-value text-lg text-blue-400">{dataStats.totalCrawled.toLocaleString()}</div>
+          <div className="metric-label">总采集</div>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.02 }} className="metric-card text-center">
+          <div className="metric-value text-lg text-emerald-400">{dataStats.validData.toLocaleString()}</div>
+          <div className="metric-label">有效数据</div>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.02 }} className="metric-card text-center">
+          <div className="metric-value text-lg text-red-400">{dataStats.invalidData.toLocaleString()}</div>
+          <div className="metric-label">无效数据</div>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.02 }} className="metric-card text-center">
+          <div className="metric-value text-lg text-cyan-400">{dataStats.feishuSynced.toLocaleString()}</div>
+          <div className="metric-label">已同步</div>
+        </motion.div>
+        <motion.div whileHover={{ scale: 1.02 }} className="metric-card text-center col-span-2 md:col-span-1">
+          <div className="metric-value text-lg text-amber-400">{dataStats.feishuPending.toLocaleString()}</div>
+          <div className="metric-label">待同步</div>
+        </motion.div>
+      </div>
+
+      {/* Platform Stats */}
+      <div className="mb-6">
+        <div className="text-label mb-3">平台数据</div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+          {platformData.map((platform, index) => (
+            <motion.div
+              key={platform.name}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ scale: 1.02 }}
+              className="metric-card"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <div className={`w-8 h-8 rounded-lg bg-gradient-to-br ${platform.color} flex items-center justify-center text-white text-xs font-bold`}>
+                    {platform.icon.charAt(0)}
+                  </div>
+                  <span className="text-sm font-medium text-white">{platform.name}</span>
+                </div>
+                <span className="text-xs text-emerald-400 font-medium">{platform.growth}</span>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-2 text-center">
+                <div>
+                  <div className="text-sm font-bold text-white">{platform.crawled.toLocaleString()}</div>
+                  <div className="text-[10px] text-white/40">采集</div>
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-emerald-400">{platform.valid.toLocaleString()}</div>
+                  <div className="text-[10px] text-white/40">有效</div>
+                </div>
+                <div>
+                  <div className="text-sm font-bold text-cyan-400">{platform.feishu.toLocaleString()}</div>
+                  <div className="text-[10px] text-white/40">同步</div>
+                </div>
+              </div>
+              
+              <div className="mt-2 flex gap-1">
+                {platform.countries.map(c => (
+                  <span key={c} className="text-[9px] px-1.5 py-0.5 bg-white/10 rounded text-white/60">{c}</span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* World Map Simulation */}
+      <div className="mb-6">
+        <div className="text-label mb-3">数据覆盖 - 10个国家</div>
+        <div className="metric-card h-48 relative overflow-hidden">
+          {/* Simple world map dots */}
+          {countryData.map((country, index) => (
             <motion.div
               key={country.code}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="absolute group cursor-pointer"
-              style={{ left: `${country.x}%`, top: `${country.y}%`, transform: 'translate(-50%, -50%)' }}
+              className="absolute"
+              style={{ left: `${country.x}%`, top: `${country.y}%` }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: index * 0.05 }}
             >
-              <div className="relative flex flex-col items-center">
-                {/* Pulse effect */}
-                <div className="absolute w-4 h-4 bg-emerald-400/30 rounded-full animate-ping"></div>
-                {/* Marker */}
-                <div className="relative w-3 h-3 bg-emerald-400 rounded-full shadow-[0_0_12px_rgba(52,211,153,0.8)] border-2 border-white"></div>
-                {/* Country code label */}
-                <div className="mt-1 text-[9px] font-bold text-white bg-black/50 px-1 rounded">{country.code}</div>
-                {/* Tooltip on hover */}
-                <div className="absolute bottom-full mb-2 hidden group-hover:block z-10">
-                  <div className="bg-slate-800 text-white text-[10px] px-2 py-1 rounded shadow-lg border border-emerald-500/30 whitespace-nowrap">
-                    <div className="font-bold">{country.name}</div>
-                    <div className="text-emerald-400">{country.count.toLocaleString()}条数据</div>
-                  </div>
+              <div className="group relative">
+                <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(59,130,246,0.6)]"></div>
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 hidden group-hover:block bg-white/10 backdrop-blur-md px-2 py-1 rounded text-[10px] text-white whitespace-nowrap border border-white/20">
+                  {country.name}: {country.count.toLocaleString()}
                 </div>
               </div>
             </motion.div>
           ))}
           
-          {/* Map Title */}
-          <div className="absolute top-3 left-3">
-            <div className="text-[10px] text-white/40">全球数据覆盖</div>
-          </div>
-          
-          {/* Legend */}
-          <div className="absolute bottom-3 right-3 bg-black/40 rounded-lg p-2 border border-white/10">
-            <div className="text-[9px] text-white/60 mb-1">数据分布</div>
-            <div className="flex items-center space-x-1">
-              <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
-              <span className="text-[9px] text-white/70">活跃市场</span>
-            </div>
+          {/* Country list */}
+          <div className="absolute bottom-2 left-2 right-2 flex flex-wrap gap-1">
+            {countryData.slice(0, 5).map(c => (
+              <span key={c.code} className="text-[9px] px-2 py-1 bg-white/5 rounded text-white/60">
+                {c.code}: {c.count.toLocaleString()}
+              </span>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Platform Details */}
-      <div className="grid grid-cols-3 gap-2 mb-4">
-        {platformData.map((platform, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: index * 0.1 }}
-            className="metric-card"
-          >
-            <div className="text-center mb-2">
-              <div className={`w-10 h-10 mx-auto rounded-lg bg-gradient-to-br ${platform.color} flex items-center justify-center text-white font-bold text-sm mb-1`}>
-                {platform.icon === 'TikTok' ? 'TT' : platform.icon}
+      {/* Processing Pipeline */}
+      <div>
+        <div className="text-label mb-3">数据处理流程</div>
+        <div className="space-y-2">
+          {processSteps.map((step, index) => (
+            <motion.div
+              key={step.name}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1 }}
+              className="metric-card"
+            >
+              <div className="flex items-center justify-between mb-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-xs text-white/70">{step.name}</span>
+                  {step.status === 'running' && (
+                    <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
+                  )}
+                </div>
+                <span className="text-xs text-white/60">{Math.round(step.progress)}%</span>
               </div>
-              <div className="text-xs font-medium text-white">{platform.name}</div>
-            </div>
-            <div className="space-y-1">
-              <div className="flex justify-between text-[10px]">
-                <span className="text-white/50">爬取:</span>
-                <span className="text-white">{platform.crawled.toLocaleString()}</span>
+              <div className="progress-bar h-1.5">
+                <motion.div 
+                  className="h-full bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${step.progress}%` }}
+                  transition={{ duration: 1, delay: index * 0.1 }}
+                />
               </div>
-              <div className="flex justify-between text-[10px]">
-                <span className="text-white/50">有效:</span>
-                <span className="text-emerald-400">{platform.valid.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-[10px]">
-                <span className="text-white/50">飞书:</span>
-                <span className="text-purple-400">{platform.feishu.toLocaleString()}</span>
-              </div>
-              <div className="progress-bar mt-1">
-                <div className="progress-fill" style={{ width: `${(platform.feishu / platform.valid) * 100}%` }}></div>
-              </div>
-              <div className="flex justify-between text-[10px] text-white/40">
-                <span>同步率: {Math.round((platform.feishu / platform.valid) * 100)}%</span>
-                <span className="text-emerald-400">{platform.growth}</span>
-              </div>
-            </div>
-            <div className="mt-2 flex flex-wrap gap-1">
-              {platform.countries.map(c => (
-                <span key={c} className="text-[8px] px-1 bg-white/10 rounded text-white/60">{c}</span>
-              ))}
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      {/* Task Progress */}
-      <div>
-        <div className="text-label mb-2">数据处理流程</div>
-        <div className="grid grid-cols-2 gap-2">
-          {tasks.map((task, i) => (
-            <div key={i} className="metric-card">
-              <div className="flex justify-between items-center mb-1">
-                <span className="text-xs text-white/80">{task.name}</span>
-                <span className="text-[10px] text-white/50">{task.count}</span>
-              </div>
-              <div className="progress-bar">
-                <div className="progress-fill" style={{ width: `${task.progress}%` }}></div>
-              </div>
-              <div className="text-[10px] text-white/40 mt-1">{task.progress}% 完成</div>
-            </div>
-          ))}
+      {/* Update Info */}
+      <div className="mt-4 pt-3 border-t border-white/10">
+        <div className="flex items-center justify-between text-[10px] text-white/40">
+          <span>数据每30秒自动更新</span>
+          <span>下次更新: {new Date(lastUpdate.getTime() + 30000).toLocaleTimeString('zh-CN')}</span>
         </div>
       </div>
     </motion.div>
