@@ -5,13 +5,20 @@ const Header: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [lastUpdate, setLastUpdate] = useState(new Date())
   const [currentTime, setCurrentTime] = useState(new Date())
-  const [uptime, setUptime] = useState({ days: 3, hours: 0, minutes: 0, seconds: 0 })
-
-  const startTime = useState(() => {
-    const start = new Date()
-    start.setDate(start.getDate() - 3)
+  const [uptime, setUptime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+  
+  // 固定启动时间：2026-03-01 09:41:00（今天第一次启动时间）
+  const [startTime] = useState(() => {
+    // 尝试从localStorage读取，如果没有则使用固定时间
+    const savedStart = localStorage.getItem('xiaodong-start-time')
+    if (savedStart) {
+      return new Date(savedStart)
+    }
+    // 首次启动时间：今天 09:41:00
+    const start = new Date('2026-03-01T09:41:00')
+    localStorage.setItem('xiaodong-start-time', start.toISOString())
     return start
-  })[0]
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {
