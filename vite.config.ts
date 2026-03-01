@@ -9,4 +9,9 @@ export default defineConfig({
     host: true
   },
   base: '/xiaodong-dashboard/', // GitHub Pages部署路径
+  build: {
+    outDir: 'dist',
+    assetsDir: 'assets',
+    sourcemap: false,
+  }
 })
