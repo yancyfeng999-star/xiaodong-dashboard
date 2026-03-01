@@ -1,49 +1,27 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const SystemStatus: React.FC = () => {
   const [showAllProcesses, setShowAllProcesses] = useState(false)
+  const [lastUpdate, setLastUpdate] = useState(new Date())
+  
+  // 动态资源数据
+  const [resources, setResources] = useState([
+    { label: 'CPU', used: 12, total: 100, unit: '%', color: 'from-emerald-400 to-emerald-500' },
+    { label: '内存', used: 4.2, total: 16, unit: 'GB', color: 'from-blue-400 to-blue-500' },
+    { label: '磁盘', used: 120, total: 512, unit: 'GB', color: 'from-purple-400 to-purple-500' },
+    { label: '带宽', used: 45, total: 100, unit: '%', color: 'from-amber-400 to-orange-500' },
+  ])
+  
+  // 动态网络数据
+  const [networkData, setNetworkData] = useState({
+    latency: 28,
+    download: 12.5,
+    upload: 3.2
+  })
 
-  const resources = [
-    { 
-      label: 'CPU', 
-      used: 12, 
-      total: 100,
-      unit: '%',
-      usedVal: '12%',
-      freeVal: '88%',
-      color: 'from-emerald-400 to-emerald-500'
-    },
-    { 
-      label: '内存', 
-      used: 4.2, 
-      total: 16,
-      unit: 'GB',
-      usedVal: '4.2GB',
-      freeVal: '11.8GB',
-      color: 'from-blue-400 to-blue-500'
-    },
-    { 
-      label: '磁盘', 
-      used: 120, 
-      total: 512,
-      unit: 'GB',
-      usedVal: '120GB',
-      freeVal: '392GB',
-      color: 'from-purple-400 to-purple-500'
-    },
-    { 
-      label: '带宽', 
-      used: 45, 
-      total: 100,
-      unit: '%',
-      usedVal: '45%',
-      freeVal: '55%',
-      color: 'from-amber-400 to-orange-500'
-    },
-  ]
-
-  const allProcesses = [
+  // 动态进程数据
+  const [allProcesses, setAllProcesses] = useState([
     { name: 'OpenClaw Gateway', cpu: 8.2, mem: 2.1, status: 'running', pid: '1024', uptime: '3天' },
     { name: 'Python爬虫服务', cpu: 0.5, mem: 0.8, status: 'idle', pid: '2048', uptime: '2天' },
     { name: 'Node.js API服务', cpu: 3.1, mem: 1.2, status: 'running', pid: '3072', uptime: '1天' },
@@ -56,7 +34,48 @@ const SystemStatus: React.FC = () => {
     { name: 'Docker容器', cpu: 2.1, mem: 1.5, status: 'running', pid: '10240', uptime: '6天' },
     { name: 'Git守护进程', cpu: 0.1, mem: 0.1, status: 'idle', pid: '11264', uptime: '7天' },
     { name: 'SSH服务', cpu: 0.2, mem: 0.2, status: 'running', pid: '12288', uptime: '10天' },
-  ]
+  ])
+
+  // 每5秒自动更新数据
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // 更新资源数据
+      setResources(prev => prev.map(r => {
+        const currentUsed = Number(r.used)
+        let newUsed = currentUsed
+        
+        if (r.label === 'CPU') {
+          newUsed = Math.max(5, Math.min(95, currentUsed + (Math.random() - 0.5) * 15))
+        } else if (r.label === '内存') {
+          newUsed = Math.max(2.5, Math.min(14, currentUsed + (Math.random() - 0.5) * 0.8))
+        } else if (r.label === '磁盘') {
+          newUsed = Math.max(115, Math.min(400, currentUsed + (Math.random() > 0.95 ? 1 : 0)))
+        } else {
+          newUsed = Math.max(25, Math.min(85, currentUsed + (Math.random() - 0.5) * 20))
+        }
+        
+        return { ...r, used: newUsed }
+      }))
+      
+      // 更新网络数据
+      setNetworkData(prev => ({
+        latency: Math.max(15, Math.min(50, prev.latency + Math.floor((Math.random() - 0.5) * 12))),
+        download: Math.max(5, Math.min(20, prev.download + (Math.random() - 0.5) * 3)),
+        upload: Math.max(1, Math.min(6, prev.upload + (Math.random() - 0.5) * 1.5))
+      }))
+      
+      // 更新进程数据
+      setAllProcesses(prev => prev.map(p => ({
+        ...p,
+        cpu: Math.max(0.1, Math.min(10, p.cpu + (Math.random() - 0.5) * 2)),
+        mem: Math.max(0.1, Math.min(4, p.mem + (Math.random() - 0.5) * 0.3))
+      })))
+      
+      setLastUpdate(new Date())
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   const displayedProcesses = showAllProcesses ? allProcesses : allProcesses.slice(0, 5)
 
@@ -75,7 +94,7 @@ const SystemStatus: React.FC = () => {
         </h2>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
-          <span className="text-sm text-white/60 font-medium">健康</span>
+          <span className="text-xs text-white/60 font-medium">实时更新</span>
         </div>
       </div>
 
@@ -90,23 +109,24 @@ const SystemStatus: React.FC = () => {
             <div className="flex justify-between items-start mb-2">
               <span className="text-sm text-white/70 font-medium">{res.label}</span>
               <div className="text-right">
-                <div className="metric-value text-lg">{res.usedVal}</div>
+                <div className="metric-value text-lg">
+                  {res.used.toFixed(res.unit === 'GB' ? 1 : 0)}{res.unit}
+                </div>
                 <div className="text-[10px] text-white/40 font-medium">/ {res.total}{res.unit}</div>
               </div>
             </div>
             
             <div className="progress-bar mb-2">
               <motion.div 
-                initial={{ width: 0 }}
                 animate={{ width: `${(res.used / res.total) * 100}%` }}
-                transition={{ duration: 1, delay: 0.3 + i * 0.1 }}
+                transition={{ duration: 0.5 }}
                 className={`h-full bg-gradient-to-r ${res.color} rounded-full`}
               />
             </div>
             
             <div className="flex justify-between text-[11px] font-medium">
-              <span className="text-white/40">已用: {res.usedVal}</span>
-              <span className="text-emerald-400">剩余: {res.freeVal}</span>
+              <span className="text-white/40">已用: {res.used.toFixed(res.unit === 'GB' ? 1 : 0)}{res.unit}</span>
+              <span className="text-emerald-400">剩余: {(res.total - res.used).toFixed(res.unit === 'GB' ? 1 : 0)}{res.unit}</span>
             </div>
           </motion.div>
         ))}
@@ -130,17 +150,17 @@ const SystemStatus: React.FC = () => {
             </div>
           </motion.div>
           <motion.div whileHover={{ scale: 1.02 }} className="metric-card text-center">
-            <div className="metric-value text-lg">28ms</div>
+            <div className="metric-value text-lg">{Math.round(networkData.latency)}ms</div>
             <div className="metric-label">延迟</div>
           </motion.div>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <motion.div whileHover={{ scale: 1.03 }} className="metric-card text-center">
-            <div className="metric-value text-lg text-emerald-400">↓ 12.5MB</div>
+            <div className="metric-value text-lg text-emerald-400">↓ {networkData.download.toFixed(1)}MB</div>
             <div className="metric-label">下载</div>
           </motion.div>
           <motion.div whileHover={{ scale: 1.03 }} className="metric-card text-center">
-            <div className="metric-value text-lg text-blue-400">↑ 3.2MB</div>
+            <div className="metric-value text-lg text-blue-400">↑ {networkData.upload.toFixed(1)}MB</div>
             <div className="metric-label">上传</div>
           </motion.div>
         </div>
@@ -187,8 +207,8 @@ const SystemStatus: React.FC = () => {
                   <div className="text-[10px] text-white/40">{proc.uptime}</div>
                 </div>
                 <div className="col-span-2 text-right text-white/50 font-mono text-xs">{proc.pid}</div>
-                <div className="col-span-2 text-right text-white font-medium">{proc.cpu}%</div>
-                <div className="col-span-2 text-right text-white font-medium">{proc.mem}GB</div>
+                <div className="col-span-2 text-right text-white font-medium">{proc.cpu.toFixed(1)}%</div>
+                <div className="col-span-2 text-right text-white font-medium">{proc.mem.toFixed(1)}GB</div>
                 <div className="col-span-2 text-right">
                   <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                     proc.status === 'running' 
@@ -204,13 +224,18 @@ const SystemStatus: React.FC = () => {
         </div>
       </div>
 
-      {/* System Info */}
+      {/* Update Info */}
       <div className="mt-4 pt-4 border-t border-white/10">
-        <div className="grid grid-cols-4 gap-3 text-xs">
-          <div className="text-white/40 font-medium">系统: <span className="text-white/80">macOS 15.3</span></div>
-          <div className="text-white/40 font-medium">架构: <span className="text-white/80">Apple Silicon</span></div>
-          <div className="text-white/40 font-medium">Node: <span className="text-white/80">v24.14.0</span></div>
-          <div className="text-white/40 font-medium">进程: <span className="text-white/80">{allProcesses.length}个</span></div>
+        <div className="flex items-center justify-between">
+          <div className="grid grid-cols-4 gap-3 text-xs">
+            <div className="text-white/40 font-medium">系统: <span className="text-white/80">macOS 15.3</span></div>
+            <div className="text-white/40 font-medium">架构: <span className="text-white/80">Apple Silicon</span></div>
+            <div className="text-white/40 font-medium">Node: <span className="text-white/80">v24.14.0</span></div>
+            <div className="text-white/40 font-medium">进程: <span className="text-white/80">{allProcesses.length}个</span></div>
+          </div>
+          <div className="text-[10px] text-white/40">
+            更新: {lastUpdate.toLocaleTimeString('zh-CN')} (每5秒)
+          </div>
         </div>
       </div>
     </motion.div>

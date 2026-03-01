@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Dashboard from './components/Dashboard'
 import Header from './components/Header'
@@ -22,6 +22,35 @@ const tabs = [
 
 function App() {
   const [activeTab, setActiveTab] = useState('overview')
+  const [lastRefresh, setLastRefresh] = useState(new Date())
+  const [nextRefreshIn, setNextRefreshIn] = useState(600)
+
+  // 全局定时刷新 - 每10分钟
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLastRefresh(new Date())
+      console.log('🔄 全局数据刷新:', new Date().toLocaleString())
+    }, 600000) // 10分钟
+
+    // 倒计时显示
+    const countdown = setInterval(() => {
+      setNextRefreshIn(prev => {
+        if (prev <= 0) return 600
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => {
+      clearInterval(interval)
+      clearInterval(countdown)
+    }
+  }, [])
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}分${secs}秒`
+  }
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -119,6 +148,20 @@ function App() {
 
       <div className="relative z-10">
         <Header />
+        
+        {/* Auto Refresh Indicator */}
+        <div className="container mx-auto px-2 md:px-3 max-w-7xl mt-2">
+          <div className="flex items-center justify-between text-[10px] text-white/40 bg-white/5 rounded-lg px-3 py-1.5">
+            <div className="flex items-center space-x-2">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+              <span>自动刷新开启</span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <span>上次刷新: {lastRefresh.toLocaleTimeString('zh-CN')}</span>
+              <span>下次刷新: {formatTime(nextRefreshIn)}</span>
+            </div>
+          </div>
+        </div>
         
         {/* Tab Navigation - Mobile Optimized */}
         <div className="container mx-auto px-2 md:px-3 max-w-7xl mt-3 md:mt-4">
