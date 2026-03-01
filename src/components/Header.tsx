@@ -13,7 +13,6 @@ const Header: React.FC = () => {
 
   const handleRefresh = () => {
     setIsRefreshing(true)
-    // Simulate refresh
     setTimeout(() => {
       setIsRefreshing(false)
       setLastUpdate(new Date())
@@ -30,94 +29,123 @@ const Header: React.FC = () => {
 
   return (
     <motion.header 
-      initial={{ opacity: 0, y: -10 }}
+      initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
-      className="header-card mx-2 mt-2 mb-4"
+      transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+      className="header-card mx-3 mt-3 mb-5"
     >
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-        {/* Left: Title */}
-        <div className="flex items-center space-x-3">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        {/* Left: Logo & Title */}
+        <div className="flex items-center gap-4">
           <motion.div
-            animate={{ rotate: [0, 5, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            animate={{ 
+              rotate: [0, 8, -8, 0],
+              scale: [1, 1.05, 1]
+            }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="relative"
           >
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-white text-xl font-bold">东</span>
+            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30">
+              <span className="text-white text-2xl font-bold">东</span>
             </div>
-            <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border border-white animate-pulse"></div>
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-white shadow-lg"
+            />
           </motion.div>
           
           <div>
-            <h1 className="text-xl font-bold text-white">
+            <motion.h1 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
+              className="text-2xl font-bold text-white tracking-tight"
+            >
               小东 AI助手
-            </h1>
-            <p className="text-xs text-white/60">东品西选电商服务（成都）有限公司</p>
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+              className="text-sm text-white/50 font-medium"
+            >
+              东品西选电商服务（成都）有限公司
+            </motion.p>
           </div>
         </div>
         
         {/* Right: Stats & Refresh */}
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-2">
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+          className="flex items-center gap-3"
+        >
+          <div className="flex items-center gap-2">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                className="metric-card text-center min-w-[60px]"
+                initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.3 + index * 0.08 }}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="metric-card text-center min-w-[72px] cursor-default"
               >
-                <div className="metric-value text-base">{stat.value}</div>
-                <div className="metric-label">{stat.label}</div>
+                <div className="text-lg mb-0.5">{stat.icon}</div>
+                <div className="metric-value text-lg">{stat.value}</div>
+                <div className="metric-label text-[10px]">{stat.label}</div>
               </motion.div>
             ))}
           </div>
           
-          {/* Refresh Button */}
           <motion.button
             onClick={handleRefresh}
             disabled={isRefreshing}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+            className={`px-4 py-2.5 rounded-xl font-semibold text-sm transition-all ${
               isRefreshing 
-                ? 'bg-white/10 text-white/50 cursor-not-allowed' 
-                : 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+                ? 'bg-white/10 text-white/40 cursor-not-allowed' 
+                : 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50'
             }`}
           >
             {isRefreshing ? '刷新中...' : '刷新'}
           </motion.button>
-        </div>
+        </motion.div>
       </div>
       
-      {/* Time & Date - Fixed */}
-      <div className="mt-3 pt-3 border-t border-white/10">
+      {/* Status Bar with Time */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.4 }}
+        className="mt-4 pt-4 border-t border-white/10"
+      >
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3 text-xs">
+          <div className="flex items-center gap-4 text-sm">
             <div className="flex items-center">
-              <div className="status-indicator status-online animate-pulse"></div>
-              <span className="text-white/80">实时连接</span>
+              <span className="status-indicator status-online" />
+              <span className="text-white/70 font-medium">实时连接</span>
             </div>
-            <span className="text-white/40">|</span>
-            <span className="text-white/60">KIMI2.5</span>
-            <span className="text-white/40">|</span>
+            <span className="text-white/20">|</span>
+            <span className="text-white/60 font-medium">KIMI2.5</span>
+            <span className="text-white/20">|</span>
             <span className="text-white/60">
-              更新: {lastUpdate.toLocaleTimeString('zh-CN')}
+              更新 {lastUpdate.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
             </span>
           </div>
           
-          {/* Fixed Time Display */}
           <div className="text-right">
-            <div className="text-lg font-bold text-white">
+            <div className="text-xl font-bold text-white tracking-tight">
               {currentTime.toLocaleTimeString('zh-CN', { hour12: false })}
             </div>
-            <div className="text-xs text-white/70">
+            <div className="text-sm text-white/60 font-medium">
               {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </motion.header>
   )
 }

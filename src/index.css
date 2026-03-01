@@ -3,142 +3,257 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    @apply box-border;
+  }
+  
   body {
-    @apply bg-gradient-to-br from-[#4a5568] to-[#2d3748] text-white min-h-screen;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    @apply bg-gradient-to-br from-slate-800 to-slate-900 text-white min-h-screen antialiased;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
   }
 }
 
 @layer components {
-  /* Glassmorphism Card - More Compact */
+  /* Enhanced Glassmorphism Card */
   .card {
-    @apply bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-4 shadow-xl;
-    transition: all 0.2s ease;
+    @apply backdrop-blur-xl rounded-2xl border p-5 shadow-2xl;
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .card:hover {
-    @apply bg-white/15 border-white/30;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(59, 130, 246, 0.1);
   }
   
-  /* Header Card - Compact */
+  /* Header Card - Premium */
   .header-card {
-    @apply bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-lg rounded-2xl border border-white/20 p-4 shadow-xl;
+    @apply backdrop-blur-2xl rounded-2xl border p-5 shadow-2xl;
+    background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.05) 50%, rgba(59,130,246,0.05) 100%);
+    border-color: rgba(255, 255, 255, 0.2);
   }
   
-  /* Progress Bar */
+  /* Progress Bar - Enhanced */
   .progress-bar {
-    @apply h-1.5 bg-white/20 rounded-full overflow-hidden;
+    @apply h-2 bg-white/15 rounded-full overflow-hidden;
   }
   
   .progress-fill {
-    @apply h-full bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full transition-all duration-500;
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+    background: linear-gradient(90deg, #10b981 0%, #3b82f6 50%, #8b5cf6 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
   }
   
-  /* Thread Indicator */
+  /* Thread Indicator - Animated */
   .thread-indicator {
-    @apply w-8 h-8 rounded-full border-2 border-white/30 shadow-md transition-all duration-300 relative;
+    @apply w-10 h-10 rounded-xl border-2 border-white/30 shadow-lg transition-all duration-300 relative flex items-center justify-center;
   }
   
   .thread-active {
-    @apply bg-gradient-to-br from-emerald-400 to-emerald-600;
-    animation: pulse 2s infinite;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    border-color: rgba(16, 185, 129, 0.5);
+    animation: glow 2s ease-in-out infinite;
   }
   
   .thread-idle {
-    @apply bg-gradient-to-br from-gray-400/50 to-gray-600/50;
+    background: linear-gradient(135deg, rgba(156, 163, 175, 0.3) 0%, rgba(107, 114, 128, 0.3) 100%);
   }
   
-  /* Task Badges */
+  /* Task Badges - Refined */
   .task-badge {
-    @apply text-xs font-medium px-2 py-0.5 rounded-full;
+    @apply text-xs font-semibold px-3 py-1 rounded-full border;
   }
   
   .task-running {
-    @apply bg-blue-500/30 text-blue-100;
+    @apply bg-blue-500/25 text-blue-200 border-blue-400/30;
+    animation: pulse-soft 2s ease-in-out infinite;
   }
   
   .task-pending {
-    @apply bg-amber-500/30 text-amber-100;
+    @apply bg-amber-500/25 text-amber-200 border-amber-400/30;
   }
   
   .task-completed {
-    @apply bg-emerald-500/30 text-emerald-100;
+    @apply bg-emerald-500/25 text-emerald-200 border-emerald-400/30;
   }
   
-  /* Status Indicator */
+  /* Status Indicator - Enhanced */
   .status-indicator {
-    @apply w-2 h-2 rounded-full inline-block mr-1;
+    @apply w-2.5 h-2.5 rounded-full inline-block mr-2;
   }
   
   .status-online {
-    @apply bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)];
+    background: linear-gradient(135deg, #34d399 0%, #10b981 100%);
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.6);
+    animation: pulse-glow 2s ease-in-out infinite;
   }
   
   .status-offline {
     @apply bg-red-400;
+    box-shadow: 0 0 8px rgba(248, 113, 113, 0.5);
   }
   
-  /* Buttons */
+  /* Buttons - Premium */
   .btn-primary {
-    @apply bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-sm font-medium px-4 py-2 rounded-lg 
-           hover:from-blue-600 hover:to-indigo-700 transition-all duration-200;
+    @apply bg-gradient-to-r from-blue-500 via-blue-600 to-indigo-600 text-white text-sm font-semibold px-5 py-2.5 rounded-xl;
+    background-size: 200% 100%;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
   }
   
-  /* Metric Cards */
+  .btn-primary:hover {
+    background-position: 100% 0;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+  }
+  
+  /* Metric Cards - Enhanced */
   .metric-card {
-    @apply bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-3;
+    @apply backdrop-blur-md rounded-xl border p-4;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.25s ease;
+  }
+  
+  .metric-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
   }
   
   .metric-value {
-    @apply text-xl font-bold text-white;
+    @apply text-2xl font-bold text-white tracking-tight;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   
   .metric-label {
-    @apply text-xs text-white/70 mt-0.5 block;
+    @apply text-xs text-white/60 mt-1 block font-medium tracking-wide;
   }
   
-  /* Table Row */
+  /* Table Row - Refined */
   .table-row {
-    @apply border-b border-white/5 hover:bg-white/5 transition-colors duration-200;
+    @apply border-b border-white/5 hover:bg-white/8 transition-all duration-200;
   }
   
-  /* Grid Cards for Skills */
+  /* Grid Cards for Skills - Enhanced */
   .skill-card {
-    @apply bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-3 
-           hover:bg-white/10 hover:border-white/20 transition-all duration-200;
+    @apply backdrop-blur-sm rounded-xl border p-4;
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
-  /* Compact Text */
+  .skill-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Text Styles - Optimized */
   .text-compact {
     @apply text-sm text-white/90 leading-relaxed;
   }
   
   .text-label {
-    @apply text-xs text-white/60 uppercase tracking-wider;
+    @apply text-xs text-white/50 uppercase tracking-widest font-semibold;
+  }
+  
+  /* Tab Button - Enhanced */
+  .tab-btn {
+    @apply flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300;
+  }
+  
+  .tab-btn-active {
+    @apply bg-blue-500 text-white;
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5);
+  }
+  
+  .tab-btn-inactive {
+    @apply text-white/60 hover:text-white hover:bg-white/10;
+  }
+  
+  /* Section Title */
+  .section-title {
+    @apply text-lg font-bold text-white mb-4 flex items-center;
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
-/* Custom Animations */
+/* Enhanced Animations */
 @keyframes pulse {
   0%, 100% { 
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.6);
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
   }
   50% { 
-    opacity: 0.85;
-    box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+    opacity: 0.9;
+    box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
   }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { 
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% { 
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(52, 211, 153, 0.6), 0 0 10px rgba(52, 211, 153, 0.3);
+  }
+  50% { 
+    box-shadow: 0 0 15px rgba(52, 211, 153, 0.8), 0 0 25px rgba(52, 211, 153, 0.4);
+  }
+}
+
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.8), 0 0 40px rgba(16, 185, 129, 0.3);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
 .animate-pulse-slow {
   animation: pulse 2s ease-in-out infinite;
 }
 
-/* Scrollbar Styling */
+/* Enhanced Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -146,9 +261,16 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-white/20 rounded-full;
+  @apply bg-white/25 rounded-full;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-white/30;
+  @apply bg-white/40;
+}
+
+/* Selection */
+::selection {
+  background: rgba(59, 130, 246, 0.4);
+  color: white;
 }

@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const SystemStatus: React.FC = () => {
   const [showAllProcesses, setShowAllProcesses] = useState(false)
 
-  // 系统资源 - 使用量和剩余量
   const resources = [
     { 
       label: 'CPU', 
@@ -44,7 +43,6 @@ const SystemStatus: React.FC = () => {
     },
   ]
 
-  // 所有进程
   const allProcesses = [
     { name: 'OpenClaw Gateway', cpu: 8.2, mem: 2.1, status: 'running', pid: '1024', uptime: '3天' },
     { name: 'Python爬虫服务', cpu: 0.5, mem: 0.8, status: 'idle', pid: '2048', uptime: '2天' },
@@ -64,127 +62,140 @@ const SystemStatus: React.FC = () => {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="card"
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-base font-bold text-white">🖥️ 系统监控</h2>
-        <div className="flex items-center space-x-1">
-          <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-          <span className="text-xs text-white/60">健康</span>
+      <div className="flex items-center justify-between mb-5">
+        <h2 className="section-title">
+          <span className="mr-2">🖥️</span>
+          系统监控
+        </h2>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+          <span className="text-sm text-white/60 font-medium">健康</span>
         </div>
       </div>
 
-      {/* Resource Usage Cards */}
-      <div className="grid grid-cols-2 gap-2 mb-4">
+      {/* Resource Grid */}
+      <div className="grid grid-cols-2 gap-3 mb-6">
         {resources.map((res, i) => (
-          <div key={i} className="metric-card">
-            <div className="flex justify-between items-center mb-1">
-              <span className="text-xs text-white/70">{res.label}</span>
+          <motion.div 
+            key={i}
+            whileHover={{ scale: 1.02 }}
+            className="metric-card"
+          >
+            <div className="flex justify-between items-start mb-2">
+              <span className="text-sm text-white/70 font-medium">{res.label}</span>
               <div className="text-right">
-                <div className="text-sm font-bold text-white">{res.usedVal}</div>
-                <div className="text-[10px] text-white/50">/ {res.total}{res.unit}</div>
+                <div className="metric-value text-lg">{res.usedVal}</div>
+                <div className="text-[10px] text-white/40 font-medium">/ {res.total}{res.unit}</div>
               </div>
             </div>
             
-            {/* Usage Bar */}
-            <div className="progress-bar mb-1">
-              <div 
+            <div className="progress-bar mb-2">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${(res.used / res.total) * 100}%` }}
+                transition={{ duration: 1, delay: 0.3 + i * 0.1 }}
                 className={`h-full bg-gradient-to-r ${res.color} rounded-full`}
-                style={{ width: `${(res.used / res.total) * 100}%` }}
-              ></div>
+              />
             </div>
             
-            {/* Used/Free */}
-            <div className="flex justify-between text-[10px]">
-              <span className="text-white/50">已用: {res.usedVal}</span>
+            <div className="flex justify-between text-[11px] font-medium">
+              <span className="text-white/40">已用: {res.usedVal}</span>
               <span className="text-emerald-400">剩余: {res.freeVal}</span>
             </div>
-          </div>
+          </motion.div>
         ))}
+      </div>
+
+      {/* Network Status */}
+      <div className="mb-6">
+        <div className="text-label mb-3">网络状态</div>
+        <div className="grid grid-cols-3 gap-3">
+          <motion.div whileHover={{ scale: 1.03 }} className="metric-card text-center">
+            <div className="metric-value text-lg">28ms</div>
+            <div className="metric-label">延迟</div>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.03 }} className="metric-card text-center">
+            <div className="metric-value text-lg text-emerald-400">↓ 12.5MB</div>
+            <div className="metric-label">下载</div>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.03 }} className="metric-card text-center">
+            <div className="metric-value text-lg text-blue-400">↑ 3.2MB</div>
+            <div className="metric-label">上传</div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Process Table */}
       <div>
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-3">
           <div className="text-label">进程列表</div>
-          <button 
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setShowAllProcesses(!showAllProcesses)}
-            className="text-[10px] text-blue-400 hover:text-blue-300 transition-colors flex items-center space-x-1"
+            className="text-xs text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-1"
           >
             <span>{showAllProcesses ? '收起' : '展开'}</span>
-            <span>{showAllProcesses ? '▲' : '▼'}</span>
-            <span className="text-white/50">({allProcesses.length}个)</span>
-          </button>
+            <motion.span animate={{ rotate: showAllProcesses ? 180 : 0 }}>▼</motion.span>
+            <span className="text-white/40">({allProcesses.length})</span>
+          </motion.button>
         </div>
         
-        {/* Table Header */}
-        <div className="grid grid-cols-12 gap-1 px-2 py-1.5 bg-white/10 text-[10px] text-white/60 font-medium rounded-t-lg">
-          <div className="col-span-4">进程名</div>
-          <div className="col-span-2 text-right">PID</div>
-          <div className="col-span-2 text-right">CPU</div>
-          <div className="col-span-2 text-right">内存</div>
-          <div className="col-span-2 text-right">状态</div>
-        </div>
-        
-        {/* Table Body */}
-        <div className={`overflow-hidden transition-all duration-300 ${showAllProcesses ? 'max-h-[300px]' : 'max-h-[140px]'} overflow-y-auto rounded-b-lg border border-white/10`}>
-          {displayedProcesses.map((proc, i) => (
-            <motion.div
-              key={proc.pid}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.2, delay: i * 0.03 }}
-              className="grid grid-cols-12 gap-1 px-2 py-2 border-b border-white/5 hover:bg-white/5 transition-colors items-center text-xs"
-            >
-              <div className="col-span-4">
-                <div className="text-white truncate">{proc.name}</div>
-                <div className="text-[10px] text-white/40">{proc.uptime}</div>
-              </div>
-              <div className="col-span-2 text-right text-white/60">{proc.pid}</div>
-              <div className="col-span-2 text-right text-white">{proc.cpu}%</div>
-              <div className="col-span-2 text-right text-white">{proc.mem}GB</div>
-              <div className="col-span-2 text-right">
-                <span className={`text-[10px] px-1.5 py-0.5 rounded ${
-                  proc.status === 'running' ? 'bg-emerald-500/20 text-emerald-200' : 'bg-gray-500/20 text-gray-300'
-                }`}>
-                  {proc.status === 'running' ? '运行' : '空闲'}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Network Status */}
-      <div className="mt-3 pt-3 border-t border-white/10">
-        <div className="text-label mb-2">网络状态</div>
-        <div className="grid grid-cols-3 gap-2">
-          <div className="metric-card text-center">
-            <div className="text-sm font-bold text-white">28ms</div>
-            <div className="text-[10px] text-white/50">延迟</div>
+        {/* Table */}
+        <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
+          <div className="grid grid-cols-12 gap-2 px-4 py-2.5 bg-white/5 text-[11px] text-white/50 font-semibold uppercase tracking-wider">
+            <div className="col-span-4">进程名</div>
+            <div className="col-span-2 text-right">PID</div>
+            <div className="col-span-2 text-right">CPU</div>
+            <div className="col-span-2 text-right">内存</div>
+            <div className="col-span-2 text-right">状态</div>
           </div>
-          <div className="metric-card text-center">
-            <div className="text-sm font-bold text-emerald-400">↓ 12.5MB</div>
-            <div className="text-[10px] text-white/50">下载</div>
-          </div>
-          <div className="metric-card text-center">
-            <div className="text-sm font-bold text-blue-400">↑ 3.2MB</div>
-            <div className="text-[10px] text-white/50">上传</div>
-          </div>
+          
+          <AnimatePresence>
+            {displayedProcesses.map((proc, i) => (
+              <motion.div
+                key={proc.pid}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2, delay: i * 0.03 }}
+                className="grid grid-cols-12 gap-2 px-4 py-2.5 border-t border-white/5 hover:bg-white/5 transition-colors items-center text-sm"
+              >
+                <div className="col-span-4">
+                  <div className="text-white font-medium truncate">{proc.name}</div>
+                  <div className="text-[10px] text-white/40">{proc.uptime}</div>
+                </div>
+                <div className="col-span-2 text-right text-white/50 font-mono text-xs">{proc.pid}</div>
+                <div className="col-span-2 text-right text-white font-medium">{proc.cpu}%</div>
+                <div className="col-span-2 text-right text-white font-medium">{proc.mem}GB</div>
+                <div className="col-span-2 text-right">
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                    proc.status === 'running' 
+                      ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
+                      : 'bg-gray-500/20 text-gray-300 border border-gray-500/30'
+                  }`}>
+                    {proc.status === 'running' ? '运行' : '空闲'}
+                  </span>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </div>
       </div>
 
       {/* System Info */}
-      <div className="mt-3 pt-3 border-t border-white/10">
-        <div className="grid grid-cols-2 gap-2 text-[10px]">
-          <div className="text-white/50">系统: <span className="text-white/80">macOS 15.3</span></div>
-          <div className="text-white/50">架构: <span className="text-white/80">Apple Silicon</span></div>
-          <div className="text-white/50">Node: <span className="text-white/80">v24.14.0</span></div>
-          <div className="text-white/50">进程: <span className="text-white/80">{allProcesses.length}个</span></div>
+      <div className="mt-4 pt-4 border-t border-white/10">
+        <div className="grid grid-cols-4 gap-3 text-xs">
+          <div className="text-white/40 font-medium">系统: <span className="text-white/80">macOS 15.3</span></div>
+          <div className="text-white/40 font-medium">架构: <span className="text-white/80">Apple Silicon</span></div>
+          <div className="text-white/40 font-medium">Node: <span className="text-white/80">v24.14.0</span></div>
+          <div className="text-white/40 font-medium">进程: <span className="text-white/80">{allProcesses.length}个</span></div>
         </div>
       </div>
     </motion.div>
