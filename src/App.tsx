@@ -11,12 +11,14 @@ import MemoryFiles from './components/MemoryFiles'
 import KnowledgeContent from './components/KnowledgeContent'
 import Schedule from './components/Schedule'
 import ModelManager from './components/ModelManager'
+import MemoryGraph from './components/MemoryGraph'
 
 const tabs = [
   { id: 'overview', label: '概览', icon: '📊' },
   { id: 'data', label: '数据', icon: '📈' },
   { id: 'system', label: '系统', icon: '⚙️' },
   { id: 'schedule', label: '日程', icon: '📅' },
+  { id: 'memory', label: '记忆', icon: '🧠' },
   { id: 'library', label: '库', icon: '📚' },
 ]
 
@@ -117,6 +119,22 @@ function App() {
           </motion.div>
         )
       
+      case 'memory':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-3 md:space-y-4"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
+              <MemoryGraph />
+              <MemoryFiles />
+            </div>
+          </motion.div>
+        )
+      
       case 'library':
         return (
           <motion.div
@@ -129,7 +147,6 @@ function App() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-4">
               <KnowledgeBase />
               <KnowledgeContent />
-              <MemoryFiles />
             </div>
           </motion.div>
         )
