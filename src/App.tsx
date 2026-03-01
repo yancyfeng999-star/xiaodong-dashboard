@@ -43,7 +43,7 @@ function App() {
                 </div>
               </div>
               <div className="space-y-4">
-                <SystemStatus />
+                <ModelManager />
               </div>
             </div>
           </motion.div>
@@ -71,10 +71,7 @@ function App() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <SystemStatus />
-              <ModelManager />
-            </div>
+            <SystemStatus />
           </motion.div>
         )
       
