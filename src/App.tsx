@@ -14,9 +14,10 @@ import ModelManager from './components/ModelManager'
 
 const tabs = [
   { id: 'overview', label: '概览', icon: '📊' },
-  { id: 'data', label: '数据中心', icon: '📈' },
-  { id: 'system', label: '系统管理', icon: '⚙️' },
-  { id: 'knowledge', label: '知识库', icon: '📚' },
+  { id: 'data', label: '数据', icon: '📈' },
+  { id: 'system', label: '系统', icon: '⚙️' },
+  { id: 'schedule', label: '日程', icon: '📅' },
+  { id: 'library', label: '库', icon: '📚' },
 ]
 
 function App() {
@@ -33,7 +34,6 @@ function App() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            {/* 概览页 - 核心内容 */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
               <div className="lg:col-span-2 space-y-4">
                 <Dashboard />
@@ -41,7 +41,6 @@ function App() {
                   <ThreadPool />
                   <TaskQueue />
                 </div>
-                <Schedule />
               </div>
               <div className="space-y-4">
                 <SystemStatus />
@@ -59,7 +58,6 @@ function App() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            {/* 数据中心页 */}
             <DataMetrics />
           </motion.div>
         )
@@ -73,7 +71,6 @@ function App() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            {/* 系统管理页 */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <SystemStatus />
               <ModelManager />
@@ -81,7 +78,7 @@ function App() {
           </motion.div>
         )
       
-      case 'knowledge':
+      case 'schedule':
         return (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -90,7 +87,19 @@ function App() {
             transition={{ duration: 0.3 }}
             className="space-y-4"
           >
-            {/* 知识库页 */}
+            <Schedule />
+          </motion.div>
+        )
+      
+      case 'library':
+        return (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="space-y-4"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <KnowledgeBase />
               <KnowledgeContent />
