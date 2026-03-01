@@ -129,6 +129,11 @@ const Header: React.FC = () => {
               <span className="text-white/70 font-medium">实时连接</span>
             </div>
             <span className="text-white/20">|</span>
+            <div className="flex items-center">
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 mr-2 shadow-[0_0_10px_rgba(52,211,153,0.6)] animate-pulse" />
+              <span className="text-white/70 font-medium">VPN 已连接</span>
+            </div>
+            <span className="text-white/20">|</span>
             <span className="text-white/60 font-medium">KIMI2.5</span>
             <span className="text-white/20">|</span>
             <span className="text-white/60">

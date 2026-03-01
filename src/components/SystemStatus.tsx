@@ -115,11 +115,26 @@ const SystemStatus: React.FC = () => {
       {/* Network Status */}
       <div className="mb-6">
         <div className="text-label mb-3">网络状态</div>
-        <div className="grid grid-cols-3 gap-3">
-          <motion.div whileHover={{ scale: 1.03 }} className="metric-card text-center">
+        <div className="grid grid-cols-2 gap-3 mb-3">
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="metric-card flex items-center justify-between"
+          >
+            <div>
+              <div className="text-sm text-white/70 font-medium">VPN 状态</div>
+              <div className="text-xs text-white/40 mt-0.5">Clash Verge</div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_10px_rgba(52,211,153,0.6)]" />
+              <span className="text-sm font-semibold text-emerald-400">已连接</span>
+            </div>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.02 }} className="metric-card text-center">
             <div className="metric-value text-lg">28ms</div>
             <div className="metric-label">延迟</div>
           </motion.div>
+        </div>
+        <div className="grid grid-cols-2 gap-3">
           <motion.div whileHover={{ scale: 1.03 }} className="metric-card text-center">
             <div className="metric-value text-lg text-emerald-400">↓ 12.5MB</div>
             <div className="metric-label">下载</div>
