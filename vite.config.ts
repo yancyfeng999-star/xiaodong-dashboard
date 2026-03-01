@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     host: true
   },
-  base: '/xiaodong-dashboard/', // GitHub Pages部署路径
+  base: './', // 使用相对路径，兼容GitHub Pages
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
