@@ -112,13 +112,20 @@ const KnowledgeBase: React.FC = () => {
     { name: 'zustand', category: '前端', desc: 'Zustand状态管理', status: 'active' },
   ]
 
-  // 添加更多技能达到102个
+  // 添加更多技能
   const additionalSkills = [
     { name: 'shopee-scraper', category: '爬虫', desc: 'Shopee数据爬取', status: 'active' },
     { name: 'tiktok-scraper', category: '爬虫', desc: 'TikTok视频抓取', status: 'active' },
     { name: 'alibaba-scraper', category: '爬虫', desc: '阿里巴巴数据爬取', status: 'active' },
     { name: '1688-scraper', category: '爬虫', desc: '1688批发数据', status: 'active' },
     { name: 'data-pipeline', category: '数据', desc: '数据管道处理', status: 'active' },
+    { name: 'zotero', category: '知识', desc: '学术文献管理', status: 'active' },
+    { name: 'readwise', category: '知识', desc: '阅读高亮管理', status: 'active' },
+    { name: 'logseq', category: '知识', desc: '知识图谱笔记', status: 'active' },
+    { name: 'notion', category: '知识', desc: 'Notion工作空间', status: 'active' },
+    { name: 'memory-curator', category: '记忆', desc: 'AI记忆策展人', status: 'active' },
+    { name: 'obsidian-official', category: '知识', desc: 'Obsidian官方技能', status: 'active' },
+    { name: 'lily-memory', category: '记忆', desc: '记忆管理工具', status: 'active' },
   ]
 
   const skills = [...allSkills, ...additionalSkills]
