@@ -47,7 +47,7 @@ const Header: React.FC = () => {
     { label: '在线', value: `${uptime.days}d ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s`, shortLabel: '在线', icon: '⏱️' },
     { label: '任务', value: '1,248', shortLabel: '任务', icon: '✅' },
     { label: '数据', value: '5.2TB', shortLabel: '数据', icon: '💾' },
-    { label: '技能', value: '114', shortLabel: '技能', icon: '🎯' },
+    { label: '技能', value: '124', shortLabel: '技能', icon: '🎯' },
   ]
 
   return (
