@@ -15,7 +15,8 @@ const DataMetrics: React.FC = () => {
   const platformData = [
     { 
       name: '亚马逊', 
-      icon: '🛒', 
+      icon: 'A', 
+      color: 'from-orange-500 to-amber-500',
       crawled: 12547,
       valid: 11892,
       feishu: 9876,
@@ -24,7 +25,8 @@ const DataMetrics: React.FC = () => {
     },
     { 
       name: 'TikTok Shop', 
-      icon: '🎵', 
+      icon: 'TikTok', 
+      color: 'from-pink-500 to-rose-500',
       crawled: 8542,
       valid: 8123,
       feishu: 6543,
@@ -33,7 +35,8 @@ const DataMetrics: React.FC = () => {
     },
     { 
       name: 'Shopee', 
-      icon: '🛍️', 
+      icon: 'S', 
+      color: 'from-red-500 to-orange-500',
       crawled: 9158,
       valid: 8441,
       feishu: 5161,
@@ -99,48 +102,60 @@ const DataMetrics: React.FC = () => {
       {/* World Map - Simplified */}
       <div className="mb-4">
         <div className="text-label mb-2">覆盖区域 (10个国家/地区)</div>
-        <div className="relative bg-slate-800/50 rounded-lg p-4 h-48 overflow-hidden border border-white/10">
-          {/* Simplified World Map Dots */}
-          <div className="absolute inset-0 opacity-20">
-            {/* Grid lines */}
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="absolute w-full h-px bg-white/10" style={{ top: `${i * 10}%` }}></div>
+        <div className="relative bg-slate-900/80 rounded-lg h-52 overflow-hidden border border-white/20">
+          {/* World Map Background */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/30 via-slate-900/50 to-slate-900/80"></div>
+          
+          {/* Grid lines */}
+          <div className="absolute inset-0 opacity-10">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={`h-${i}`} className="absolute w-full h-px bg-white/20" style={{ top: `${(i + 1) * 12}%` }}></div>
             ))}
-            {Array.from({ length: 10 }).map((_, i) => (
-              <div key={i} className="absolute h-full w-px bg-white/10" style={{ left: `${i * 10}%` }}></div>
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={`v-${i}`} className="absolute h-full w-px bg-white/20" style={{ left: `${(i + 1) * 12}%` }}></div>
             ))}
           </div>
           
-          {/* Country Markers */}
+          {/* Country Markers with Labels */}
           {countries.map((country, index) => (
             <motion.div
               key={country.code}
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="absolute group cursor-pointer"
-              style={{ left: `${country.x}%`, top: `${country.y}%` }}
+              style={{ left: `${country.x}%`, top: `${country.y}%`, transform: 'translate(-50%, -50%)' }}
             >
-              <div className="relative">
-                <div className="w-3 h-3 bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)] animate-pulse"></div>
-                {/* Tooltip */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1 hidden group-hover:block whitespace-nowrap">
-                  <div className="bg-slate-700 text-white text-[10px] px-2 py-1 rounded shadow-lg border border-white/20">
-                    {country.name}: {country.count.toLocaleString()}条
+              <div className="relative flex flex-col items-center">
+                {/* Pulse effect */}
+                <div className="absolute w-4 h-4 bg-emerald-400/30 rounded-full animate-ping"></div>
+                {/* Marker */}
+                <div className="relative w-3 h-3 bg-emerald-400 rounded-full shadow-[0_0_12px_rgba(52,211,153,0.8)] border-2 border-white"></div>
+                {/* Country code label */}
+                <div className="mt-1 text-[9px] font-bold text-white bg-black/50 px-1 rounded">{country.code}</div>
+                {/* Tooltip on hover */}
+                <div className="absolute bottom-full mb-2 hidden group-hover:block z-10">
+                  <div className="bg-slate-800 text-white text-[10px] px-2 py-1 rounded shadow-lg border border-emerald-500/30 whitespace-nowrap">
+                    <div className="font-bold">{country.name}</div>
+                    <div className="text-emerald-400">{country.count.toLocaleString()}条数据</div>
                   </div>
                 </div>
               </div>
             </motion.div>
           ))}
           
+          {/* Map Title */}
+          <div className="absolute top-3 left-3">
+            <div className="text-[10px] text-white/40">全球数据覆盖</div>
+          </div>
+          
           {/* Legend */}
-          <div className="absolute bottom-2 left-2 flex flex-wrap gap-1">
-            {countries.slice(0, 6).map(c => (
-              <span key={c.code} className="text-[9px] px-1.5 py-0.5 bg-white/10 rounded text-white/70">
-                {c.code}
-              </span>
-            ))}
-            <span className="text-[9px] px-1.5 py-0.5 bg-white/10 rounded text-white/70">+4</span>
+          <div className="absolute bottom-3 right-3 bg-black/40 rounded-lg p-2 border border-white/10">
+            <div className="text-[9px] text-white/60 mb-1">数据分布</div>
+            <div className="flex items-center space-x-1">
+              <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+              <span className="text-[9px] text-white/70">活跃市场</span>
+            </div>
           </div>
         </div>
       </div>
@@ -156,7 +171,9 @@ const DataMetrics: React.FC = () => {
             className="metric-card"
           >
             <div className="text-center mb-2">
-              <div className="text-xl">{platform.icon}</div>
+              <div className={`w-10 h-10 mx-auto rounded-lg bg-gradient-to-br ${platform.color} flex items-center justify-center text-white font-bold text-sm mb-1`}>
+                {platform.icon === 'TikTok' ? 'TT' : platform.icon}
+              </div>
               <div className="text-xs font-medium text-white">{platform.name}</div>
             </div>
             <div className="space-y-1">

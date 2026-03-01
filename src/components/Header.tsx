@@ -1,12 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 
 const Header: React.FC = () => {
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [lastUpdate, setLastUpdate] = useState(new Date())
+
+  const handleRefresh = () => {
+    setIsRefreshing(true)
+    // Simulate refresh
+    setTimeout(() => {
+      setIsRefreshing(false)
+      setLastUpdate(new Date())
+      window.location.reload()
+    }, 1000)
+  }
+
   const stats = [
     { label: '在线', value: '3天', icon: '⏱️' },
     { label: '任务', value: '1,248', icon: '✅' },
     { label: '数据', value: '5.2TB', icon: '💾' },
-    { label: '技能', value: '15+', icon: '🎯' },
+    { label: '技能', value: '11', icon: '🎯' },
   ]
 
   return (
@@ -27,7 +40,7 @@ const Header: React.FC = () => {
             <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center shadow-lg">
               <span className="text-white text-xl font-bold">东</span>
             </div>
-            <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border border-white"></div>
+            <div className="absolute -top-0.5 -right-0.5 w-3 h-3 bg-emerald-400 rounded-full border border-white animate-pulse"></div>
           </motion.div>
           
           <div>
@@ -38,20 +51,43 @@ const Header: React.FC = () => {
           </div>
         </div>
         
-        {/* Right: Stats */}
-        <div className="flex items-center space-x-2">
-          {stats.map((stat, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="metric-card text-center min-w-[70px]"
+        {/* Right: Stats & Refresh */}
+        <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2">
+            {stats.map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                className="metric-card text-center min-w-[60px]"
+              >
+                <div className="metric-value text-base">{stat.value}</div>
+                <div className="metric-label">{stat.label}</div>
+              </motion.div>
+            ))}
+          </div>
+          
+          {/* Refresh Button */}
+          <motion.button
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`flex items-center space-x-1 px-3 py-2 rounded-lg font-medium text-sm transition-all ${
+              isRefreshing 
+                ? 'bg-white/10 text-white/50 cursor-not-allowed' 
+                : 'bg-blue-500 hover:bg-blue-600 text-white shadow-lg shadow-blue-500/25'
+            }`}
+          >
+            <motion.span
+              animate={isRefreshing ? { rotate: 360 } : { rotate: 0 }}
+              transition={{ duration: 1, repeat: isRefreshing ? Infinity : 0, ease: "linear" }}
             >
-              <div className="metric-value text-base">{stat.value}</div>
-              <div className="metric-label">{stat.label}</div>
-            </motion.div>
-          ))}
+              🔄
+            </motion.span>
+            <span>{isRefreshing ? '刷新中...' : '刷新'}</span>
+          </motion.button>
         </div>
       </div>
       
@@ -59,21 +95,23 @@ const Header: React.FC = () => {
       <div className="mt-3 pt-3 border-t border-white/10 flex items-center justify-between">
         <div className="flex items-center space-x-3 text-xs">
           <div className="flex items-center">
-            <div className="status-indicator status-online animate-pulse-slow"></div>
-            <span className="text-white/80">运行中</span>
+            <div className="status-indicator status-online animate-pulse"></div>
+            <span className="text-white/80">实时连接</span>
           </div>
           <span className="text-white/40">|</span>
           <span className="text-white/60">KIMI2.5</span>
           <span className="text-white/40">|</span>
-          <span className="text-white/60">{new Date().toLocaleTimeString('zh-CN')}</span>
+          <span className="text-white/60">
+            更新: {lastUpdate.toLocaleTimeString('zh-CN')}
+          </span>
         </div>
         
-        <div className="flex space-x-2">
+        <div className="flex items-center space-x-2">
           <span className="px-2 py-0.5 bg-emerald-500/20 text-emerald-200 text-xs rounded-full border border-emerald-500/30">
-            在线
+            🟢 在线
           </span>
           <span className="px-2 py-0.5 bg-blue-500/20 text-blue-200 text-xs rounded-full border border-blue-500/30">
-            实时
+            ⚡ 实时
           </span>
         </div>
       </div>
