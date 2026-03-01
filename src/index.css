@@ -277,3 +277,42 @@
   background: rgba(59, 130, 246, 0.4);
   color: white;
 }
+
+/* Hide scrollbar for mobile tabs */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 640px) {
+  .card {
+    @apply p-3;
+  }
+  
+  .metric-card {
+    @apply p-2;
+  }
+  
+  .section-title {
+    @apply text-base mb-3;
+  }
+  
+  .metric-value {
+    @apply text-lg;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 380px) {
+  .card {
+    @apply p-2.5;
+  }
+  
+  .metric-card {
+    @apply p-1.5;
+  }
+}

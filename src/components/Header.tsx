@@ -7,7 +7,6 @@ const Header: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [uptime, setUptime] = useState({ days: 3, hours: 0, minutes: 0, seconds: 0 })
 
-  // 启动时间（3天前）
   const startTime = useState(() => {
     const start = new Date()
     start.setDate(start.getDate() - 3)
@@ -17,15 +16,12 @@ const Header: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date())
-      
-      // 计算运行时间
       const now = new Date()
       const diff = now.getTime() - startTime.getTime()
       const days = Math.floor(diff / (1000 * 60 * 60 * 24))
       const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
       const seconds = Math.floor((diff % (1000 * 60)) / 1000)
-      
       setUptime({ days, hours, minutes, seconds })
     }, 1000)
     return () => clearInterval(timer)
@@ -41,10 +37,10 @@ const Header: React.FC = () => {
   }
 
   const stats = [
-    { label: '在线时长', value: `${uptime.days}天${uptime.hours}时${uptime.minutes}分${uptime.seconds}秒`, icon: '⏱️', shortValue: `${uptime.days}d ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s` },
-    { label: '任务', value: '1,248', icon: '✅' },
-    { label: '已处理数据', value: '5.2TB', icon: '💾' },
-    { label: '技能', value: '11', icon: '🎯' },
+    { label: '在线', value: `${uptime.days}d ${uptime.hours}h ${uptime.minutes}m ${uptime.seconds}s`, shortLabel: '在线', icon: '⏱️' },
+    { label: '任务', value: '1,248', shortLabel: '任务', icon: '✅' },
+    { label: '数据', value: '5.2TB', shortLabel: '数据', icon: '💾' },
+    { label: '技能', value: '11', shortLabel: '技能', icon: '🎯' },
   ]
 
   return (
@@ -52,26 +48,23 @@ const Header: React.FC = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-      className="header-card mx-3 mt-3 mb-5"
+      className="header-card mx-2 md:mx-3 mt-2 md:mt-3 mb-4 md:mb-5"
     >
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 md:gap-4">
         {/* Left: Logo & Title */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-4">
           <motion.div
-            animate={{ 
-              rotate: [0, 8, -8, 0],
-              scale: [1, 1.05, 1]
-            }}
+            animate={{ rotate: [0, 8, -8, 0], scale: [1, 1.05, 1] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="relative"
           >
-            <div className="w-12 h-12 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30">
-              <span className="text-white text-2xl font-bold">东</span>
+            <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-xl shadow-blue-500/30">
+              <span className="text-white text-xl md:text-2xl font-bold">东</span>
             </div>
             <motion.div 
               animate={{ scale: [1, 1.2, 1], opacity: [1, 0.7, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-white shadow-lg"
+              className="absolute -top-0.5 -right-0.5 w-3 h-3 md:w-3.5 md:h-3.5 bg-emerald-400 rounded-full border-2 border-white shadow-lg"
             />
           </motion.div>
           
@@ -80,7 +73,7 @@ const Header: React.FC = () => {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.4 }}
-              className="text-2xl font-bold text-white tracking-tight"
+              className="text-xl md:text-2xl font-bold text-white tracking-tight"
             >
               小东
             </motion.h1>
@@ -88,7 +81,7 @@ const Header: React.FC = () => {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.4 }}
-              className="text-sm text-white/50 font-medium"
+              className="text-xs md:text-sm text-white/50 font-medium"
             >
               跨境电商专家
             </motion.p>
@@ -100,9 +93,9 @@ const Header: React.FC = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.4 }}
-          className="flex items-center gap-3"
+          className="flex items-center gap-2 md:gap-3 overflow-x-auto pb-1 md:pb-0 scrollbar-hide"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 md:gap-2">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
@@ -110,12 +103,12 @@ const Header: React.FC = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: 0.3 + index * 0.08 }}
                 whileHover={{ scale: 1.05, y: -2 }}
-                className="metric-card text-center min-w-[90px] cursor-default"
-                title={stat.label === '在线时长' ? stat.value : undefined}
+                className="metric-card text-center min-w-[65px] md:min-w-[90px] cursor-default flex-shrink-0 p-2 md:p-4"
+                title={stat.label === '在线' ? stat.value : undefined}
               >
-                <div className="text-lg mb-0.5">{stat.icon}</div>
-                <div className="metric-value text-base">{stat.shortValue || stat.value}</div>
-                <div className="metric-label text-[10px]">{stat.label}</div>
+                <div className="text-base md:text-lg mb-0.5">{stat.icon}</div>
+                <div className="metric-value text-xs md:text-base truncate">{stat.value}</div>
+                <div className="metric-label text-[9px] md:text-[10px]">{stat.shortLabel}</div>
               </motion.div>
             ))}
           </div>
@@ -125,13 +118,13 @@ const Header: React.FC = () => {
             disabled={isRefreshing}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className={`px-4 py-2.5 rounded-xl font-semibold text-sm transition-all ${
+            className={`px-3 md:px-4 py-2 md:py-2.5 rounded-lg md:rounded-xl font-semibold text-xs md:text-sm transition-all flex-shrink-0 ${
               isRefreshing 
                 ? 'bg-white/10 text-white/40 cursor-not-allowed' 
                 : 'bg-gradient-to-r from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50'
             }`}
           >
-            {isRefreshing ? '刷新中...' : '刷新'}
+            {isRefreshing ? '...' : '刷新'}
           </motion.button>
         </motion.div>
       </div>
@@ -141,32 +134,28 @@ const Header: React.FC = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.4 }}
-        className="mt-4 pt-4 border-t border-white/10"
+        className="mt-3 md:mt-4 pt-3 md:pt-4 border-t border-white/10"
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4 text-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0">
+          <div className="flex items-center gap-2 md:gap-4 text-xs md:text-sm flex-wrap">
             <div className="flex items-center">
-              <span className="status-indicator status-online" />
-              <span className="text-white/70 font-medium">实时连接</span>
+              <span className="status-indicator status-online w-2 h-2 md:w-2.5 md:h-2.5" />
+              <span className="text-white/70 font-medium">实时</span>
             </div>
-            <span className="text-white/20">|</span>
+            <span className="text-white/20 hidden sm:inline">|</span>
             <div className="flex items-center">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 mr-2 shadow-[0_0_10px_rgba(52,211,153,0.6)] animate-pulse" />
-              <span className="text-white/70 font-medium">VPN 已连接</span>
+              <span className="w-2 h-2 md:w-2.5 md:h-2.5 rounded-full bg-emerald-400 mr-1.5 md:mr-2 shadow-[0_0_10px_rgba(52,211,153,0.6)] animate-pulse" />
+              <span className="text-white/70 font-medium">VPN</span>
             </div>
-            <span className="text-white/20">|</span>
+            <span className="text-white/20 hidden sm:inline">|</span>
             <span className="text-white/60 font-medium">KIMI2.5</span>
-            <span className="text-white/20">|</span>
-            <span className="text-white/60">
-              更新 {lastUpdate.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
-            </span>
           </div>
           
           <div className="text-right">
-            <div className="text-xl font-bold text-white tracking-tight">
-              {currentTime.toLocaleTimeString('zh-CN', { hour12: false })}
+            <div className="text-base md:text-xl font-bold text-white tracking-tight">
+              {currentTime.toLocaleTimeString('zh-CN', { hour12: false, hour: '2-digit', minute: '2-digit' })}
             </div>
-            <div className="text-sm text-white/60 font-medium">
+            <div className="text-xs md:text-sm text-white/60 font-medium hidden sm:block">
               {currentTime.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' })}
             </div>
           </div>
