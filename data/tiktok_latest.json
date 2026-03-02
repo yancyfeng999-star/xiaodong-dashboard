@@ -1,0 +1,202 @@
+[
+  {
+    "rank": 1,
+    "name": "Trending Product 1",
+    "category": "Home & Kitchen",
+    "sales": 11258,
+    "price": 21.32,
+    "rating": 4.9,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154080"
+  },
+  {
+    "rank": 2,
+    "name": "Trending Product 2",
+    "category": "Home & Kitchen",
+    "sales": 48642,
+    "price": 48.58,
+    "rating": 5.0,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154093"
+  },
+  {
+    "rank": 3,
+    "name": "Trending Product 3",
+    "category": "Fashion",
+    "sales": 28441,
+    "price": 62.11,
+    "rating": 4.8,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154097"
+  },
+  {
+    "rank": 4,
+    "name": "Trending Product 4",
+    "category": "Sports",
+    "sales": 35896,
+    "price": 86.21,
+    "rating": 4.6,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154099"
+  },
+  {
+    "rank": 5,
+    "name": "Trending Product 5",
+    "category": "Electronics",
+    "sales": 28644,
+    "price": 41.69,
+    "rating": 4.8,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154100"
+  },
+  {
+    "rank": 6,
+    "name": "Trending Product 6",
+    "category": "Sports",
+    "sales": 41657,
+    "price": 19.05,
+    "rating": 4.6,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154102"
+  },
+  {
+    "rank": 7,
+    "name": "Trending Product 7",
+    "category": "Beauty",
+    "sales": 46200,
+    "price": 36.31,
+    "rating": 4.3,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154103"
+  },
+  {
+    "rank": 8,
+    "name": "Trending Product 8",
+    "category": "Beauty",
+    "sales": 19293,
+    "price": 62.47,
+    "rating": 4.7,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154104"
+  },
+  {
+    "rank": 9,
+    "name": "Trending Product 9",
+    "category": "Fashion",
+    "sales": 12273,
+    "price": 31.13,
+    "rating": 4.7,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154106"
+  },
+  {
+    "rank": 10,
+    "name": "Trending Product 10",
+    "category": "Beauty",
+    "sales": 31275,
+    "price": 36.25,
+    "rating": 4.2,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154107"
+  },
+  {
+    "rank": 11,
+    "name": "Trending Product 11",
+    "category": "Electronics",
+    "sales": 43084,
+    "price": 19.6,
+    "rating": 4.6,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154108"
+  },
+  {
+    "rank": 12,
+    "name": "Trending Product 12",
+    "category": "Beauty",
+    "sales": 30764,
+    "price": 63.53,
+    "rating": 4.1,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154110"
+  },
+  {
+    "rank": 13,
+    "name": "Trending Product 13",
+    "category": "Home & Kitchen",
+    "sales": 48052,
+    "price": 13.56,
+    "rating": 4.9,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154111"
+  },
+  {
+    "rank": 14,
+    "name": "Trending Product 14",
+    "category": "Sports",
+    "sales": 44379,
+    "price": 99.2,
+    "rating": 4.5,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154112"
+  },
+  {
+    "rank": 15,
+    "name": "Trending Product 15",
+    "category": "Home & Kitchen",
+    "sales": 13882,
+    "price": 13.6,
+    "rating": 4.9,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154114"
+  },
+  {
+    "rank": 16,
+    "name": "Trending Product 16",
+    "category": "Electronics",
+    "sales": 16845,
+    "price": 25.37,
+    "rating": 4.0,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154115"
+  },
+  {
+    "rank": 17,
+    "name": "Trending Product 17",
+    "category": "Electronics",
+    "sales": 47760,
+    "price": 26.86,
+    "rating": 4.8,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154116"
+  },
+  {
+    "rank": 18,
+    "name": "Trending Product 18",
+    "category": "Home & Kitchen",
+    "sales": 30920,
+    "price": 25.73,
+    "rating": 4.3,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154117"
+  },
+  {
+    "rank": 19,
+    "name": "Trending Product 19",
+    "category": "Fashion",
+    "sales": 22803,
+    "price": 61.12,
+    "rating": 4.2,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154119"
+  },
+  {
+    "rank": 20,
+    "name": "Trending Product 20",
+    "category": "Home & Kitchen",
+    "sales": 16289,
+    "price": 28.08,
+    "rating": 4.3,
+    "platform": "tiktok",
+    "crawl_time": "2026-03-02T10:33:10.154120"
+  }
+]
