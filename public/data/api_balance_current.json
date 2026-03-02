@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-03-02 09:25:27",
+  "check_time": "2026-03-02T09:25:27",
+  "platforms": {
+    "moonshot": {
+      "status": "ok",
+      "platform": "Moonshot (Kimi)",
+      "balance": "控制台查看",
+      "currency": "CNY",
+      "note": "https://platform.moonshot.cn/"
+    },
+    "deepseek": {
+      "status": "ok",
+      "platform": "DeepSeek",
+      "balance": 30.7,
+      "currency": "CNY",
+      "granted": 5.0,
+      "topped_up": 25.7
+    },
+    "openrouter": {
+      "status": "error",
+      "message": "未配置API Key"
+    }
+  }
+}

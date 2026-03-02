@@ -12,6 +12,7 @@ import KnowledgeContent from './components/KnowledgeContent'
 import Schedule from './components/Schedule'
 import ModelManager from './components/ModelManager'
 import MemoryGraph from './components/MemoryGraph'
+import APIBalanceMonitor from './components/APIBalanceMonitor'
 
 const tabs = [
   { id: 'overview', label: '概览', icon: '📊' },
@@ -68,6 +69,7 @@ function App() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 md:gap-4">
               <div className="lg:col-span-2 space-y-3 md:space-y-4">
                 <Dashboard />
+                <APIBalanceMonitor />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
                   <ThreadPool />
                   <TaskQueue />

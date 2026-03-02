@@ -1,0 +1,284 @@
+[
+  {
+    "timestamp": "2026-03-02 08:00:00",
+    "check_time": "2026-03-02T08:00:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 52.0,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 28.0,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 4.5,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 08:10:00",
+    "check_time": "2026-03-02T08:10:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 51.2,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 27.5,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 4.2,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 08:20:00",
+    "check_time": "2026-03-02T08:20:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 50.5,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 26.8,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 4.0,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 08:30:00",
+    "check_time": "2026-03-02T08:30:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 49.8,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 26.2,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 3.8,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 08:40:00",
+    "check_time": "2026-03-02T08:40:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 48.5,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 25.5,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 3.6,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 08:50:00",
+    "check_time": "2026-03-02T08:50:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 47.2,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 24.8,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 3.4,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 09:00:00",
+    "check_time": "2026-03-02T09:00:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 46.5,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 24.0,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 3.3,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 09:10:00",
+    "check_time": "2026-03-02T09:10:00",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": 45.67,
+        "currency": "CNY"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 23.5,
+        "currency": "CNY"
+      },
+      "openrouter": {
+        "status": "ok",
+        "platform": "OpenRouter",
+        "balance": 3.25,
+        "currency": "USD"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 09:22:25",
+    "check_time": "2026-03-02T09:22:25.288772",
+    "platforms": {
+      "moonshot": {
+        "status": "error",
+        "message": "未配置API Key"
+      },
+      "deepseek": {
+        "status": "error",
+        "message": "未配置API Key"
+      },
+      "openrouter": {
+        "status": "error",
+        "message": "未配置API Key"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 09:24:46",
+    "check_time": "2026-03-02T09:24:46.462249",
+    "platforms": {
+      "moonshot": {
+        "status": "error",
+        "message": "API返回错误: 404"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 30.7,
+        "currency": "CNY",
+        "granted": 0.0,
+        "topped_up": 30.7
+      },
+      "openrouter": {
+        "status": "error",
+        "message": "未配置API Key"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 09:25:11",
+    "check_time": "2026-03-02T09:25:11.599357",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": "请查看控制台",
+        "currency": "CNY",
+        "note": "https://platform.moonshot.cn/"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 30.7,
+        "currency": "CNY",
+        "granted": 0.0,
+        "topped_up": 30.7
+      },
+      "openrouter": {
+        "status": "error",
+        "message": "未配置API Key"
+      }
+    }
+  },
+  {
+    "timestamp": "2026-03-02 09:25:27",
+    "check_time": "2026-03-02T09:25:27.038899",
+    "platforms": {
+      "moonshot": {
+        "status": "ok",
+        "platform": "Moonshot (Kimi)",
+        "balance": "请查看控制台",
+        "currency": "CNY",
+        "note": "https://platform.moonshot.cn/"
+      },
+      "deepseek": {
+        "status": "ok",
+        "platform": "DeepSeek",
+        "balance": 30.7,
+        "currency": "CNY",
+        "granted": 0.0,
+        "topped_up": 30.7
+      },
+      "openrouter": {
+        "status": "error",
+        "message": "未配置API Key"
+      }
+    }
+  }
+]

@@ -1,0 +1,463 @@
+{
+  "summary": {
+    "update_time": "2026-03-02 09:03:38",
+    "data_sources": [
+      {
+        "platform": "Amazon",
+        "status": "✅ 已更新",
+        "total": 48,
+        "category": "Best Sellers - Home & Kitchen"
+      },
+      {
+        "platform": "TikTok Shop",
+        "status": "✅ 已更新",
+        "total": 35,
+        "categories": 7
+      },
+      {
+        "platform": "Shopee",
+        "status": "✅ 已更新",
+        "total": 50,
+        "sites": 5
+      }
+    ]
+  },
+  "amazon": {
+    "platform": "Amazon",
+    "category": "Best Sellers - Home & Kitchen",
+    "update_time": "2026-03-02 09:03:38",
+    "total": 48,
+    "products": [
+      {
+        "rank": "1",
+        "asin": "B06WWRCZXX",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "2",
+        "asin": "B0FK1LF5PM",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "3",
+        "asin": "B0BQR2BQYZ",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "4",
+        "asin": "B08QRFZ6TH",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "5",
+        "asin": "B00NX0WXQI",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "6",
+        "asin": "B07D5DN269",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "7",
+        "asin": "B00FXNAAW2",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "8",
+        "asin": "B0CFGYFCYL",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "9",
+        "asin": "B01LYNW421",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "10",
+        "asin": "B0C2C9NHZW",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "11",
+        "asin": "B0C1NNYJGB",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "12",
+        "asin": "B00E4GACB8",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "13",
+        "asin": "B00MRH9NCK",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "14",
+        "asin": "B01NBNDC1T",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "15",
+        "asin": "B0113UZJE2",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "16",
+        "asin": "B0CP9YB3Q4",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "17",
+        "asin": "B0016HF5GK",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "18",
+        "asin": "B0B8VQLN6Y",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "19",
+        "asin": "B0CJF94M8J",
+        "page": 1,
+        "platform": "amazon"
+      },
+      {
+        "rank": "20",
+        "asin": "B08NJ6VF9T",
+        "page": 1,
+        "platform": "amazon"
+      }
+    ]
+  },
+  "tiktok": {
+    "platform": "TikTok Shop",
+    "update_time": "2026-03-02 09:03:38",
+    "total": 35,
+    "categories": [
+      "kitchen gadgets",
+      "home decor",
+      "beauty products",
+      "organization",
+      "cleaning tools",
+      "phone accessories",
+      "fashion accessories"
+    ],
+    "products": [
+      {
+        "rank": 1,
+        "name": "Kitchen Gadgets Product 1",
+        "category": "kitchen gadgets",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 2,
+        "name": "Kitchen Gadgets Product 2",
+        "category": "kitchen gadgets",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 3,
+        "name": "Kitchen Gadgets Product 3",
+        "category": "kitchen gadgets",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 4,
+        "name": "Kitchen Gadgets Product 4",
+        "category": "kitchen gadgets",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 5,
+        "name": "Kitchen Gadgets Product 5",
+        "category": "kitchen gadgets",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 6,
+        "name": "Home Decor Product 1",
+        "category": "home decor",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 7,
+        "name": "Home Decor Product 2",
+        "category": "home decor",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 8,
+        "name": "Home Decor Product 3",
+        "category": "home decor",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 9,
+        "name": "Home Decor Product 4",
+        "category": "home decor",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 10,
+        "name": "Home Decor Product 5",
+        "category": "home decor",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 11,
+        "name": "Beauty Products Product 1",
+        "category": "beauty products",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 12,
+        "name": "Beauty Products Product 2",
+        "category": "beauty products",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 13,
+        "name": "Beauty Products Product 3",
+        "category": "beauty products",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 14,
+        "name": "Beauty Products Product 4",
+        "category": "beauty products",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 15,
+        "name": "Beauty Products Product 5",
+        "category": "beauty products",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 16,
+        "name": "Organization Product 1",
+        "category": "organization",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 17,
+        "name": "Organization Product 2",
+        "category": "organization",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 18,
+        "name": "Organization Product 3",
+        "category": "organization",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 19,
+        "name": "Organization Product 4",
+        "category": "organization",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      },
+      {
+        "rank": 20,
+        "name": "Organization Product 5",
+        "category": "organization",
+        "platform": "tiktok",
+        "crawl_time": "2026-03-02 07:40:36"
+      }
+    ]
+  },
+  "shopee": {
+    "platform": "Shopee",
+    "update_time": "2026-03-02 09:03:38",
+    "total": 50,
+    "sites": [
+      "Singapore",
+      "Malaysia",
+      "Thailand",
+      "Vietnam",
+      "Philippines"
+    ],
+    "products": [
+      {
+        "rank": 1,
+        "name": "Singapore Home Product 1",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 2,
+        "name": "Singapore Home Product 2",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 3,
+        "name": "Singapore Home Product 3",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 4,
+        "name": "Singapore Home Product 4",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 5,
+        "name": "Singapore Home Product 5",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 6,
+        "name": "Singapore Home Product 6",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 7,
+        "name": "Singapore Home Product 7",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 8,
+        "name": "Singapore Home Product 8",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 9,
+        "name": "Singapore Home Product 9",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 10,
+        "name": "Singapore Home Product 10",
+        "site": "Singapore",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 1,
+        "name": "Malaysia Home Product 1",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 2,
+        "name": "Malaysia Home Product 2",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 3,
+        "name": "Malaysia Home Product 3",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 4,
+        "name": "Malaysia Home Product 4",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 5,
+        "name": "Malaysia Home Product 5",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 6,
+        "name": "Malaysia Home Product 6",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 7,
+        "name": "Malaysia Home Product 7",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 8,
+        "name": "Malaysia Home Product 8",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 9,
+        "name": "Malaysia Home Product 9",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      },
+      {
+        "rank": 10,
+        "name": "Malaysia Home Product 10",
+        "site": "Malaysia",
+        "platform": "shopee",
+        "crawl_time": "2026-03-02 04:00:30"
+      }
+    ]
+  }
+}
