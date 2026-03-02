@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小东AI - 系统架构</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .layer-connector {
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(99, 102, 241, 0.5), rgba(99, 102, 241, 0.1));
+            margin: 0 auto;
+        }
+        .node-card {
+            transition: all 0.3s ease;
+        }
+        .node-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.3);
+        }
+        .flow-arrow {
+            animation: flow 2s ease-in-out infinite;
+        }
+        @keyframes flow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white min-h-screen">
+    <!-- Header -->
+    <header class="gradient-bg py-8 px-4">
+        <div class="max-w-6xl mx-auto text-center">
+            <h1 class="text-4xl font-bold mb-2">🤖 小东AI 系统架构</h1>
+            <p class="text-blue-100 text-lg">智能选品专家 + 跨境电商助手生态系统</p>
+            <div class="mt-4 flex justify-center gap-4 text-sm">
+                <span class="px-3 py-1 bg-white/20 rounded-full">v2.0</span>
+                <span class="px-3 py-1 bg-white/20 rounded-full">OpenClaw Agent</span>
+                <span class="px-3 py-1 bg-white/20 rounded-full">Multi-Agent System</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+        <!-- 架构概览 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center text-sm">📊</span>
+                系统架构概览
+            </h2>
+            <div class="glass-card rounded-2xl p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
+                    <div class="p-4 bg-blue-500/10 rounded-xl">
+                        <div class="text-3xl font-bold text-blue-400">3</div>
+                        <div class="text-sm text-gray-400 mt-1">核心智能助手</div>
+                    </div>
+                    <div class="p-4 bg-purple-500/10 rounded-xl">
+                        <div class="text-3xl font-bold text-purple-400">8+</div>
+                        <div class="text-sm text-gray-400 mt-1">定时任务</div>
+                    </div>
+                    <div class="p-4 bg-pink-500/10 rounded-xl">
+                        <div class="text-3xl font-bold text-pink-400">3</div>
+                        <div class="text-sm text-gray-400 mt-1">电商平台</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 三层架构图 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-sm">🏗️</span>
+                三层智能助手架构
+            </h2>
+            
+            <!-- Layer 1: 核心智能助手 -->
+            <div class="glass-card rounded-2xl p-6 mb-4 border-l-4 border-blue-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-blue-400">Layer 1: 核心智能助手 (Core Agents)</h3>
+                    <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded">决策层</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-blue-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">🧠</span>
+                            <div>
+                                <div class="font-semibold">选品大脑</div>
+                                <div class="text-xs text-gray-400">Product AI</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• 智能评分模型</li>
+                            <li>• 自动筛选推荐</li>
+                            <li>• 利润预测分析</li>
+                            <li>• 风险评估预警</li>
+                        </ul>
+                    </div>
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-purple-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">📡</span>
+                            <div>
+                                <div class="font-semibold">市场情报员</div>
+                                <div class="text-xs text-gray-400">Market AI</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• 趋势预测分析</li>
+                            <li>• 竞品监控系统</li>
+                            <li>• 行业报告生成</li>
+                            <li>• 政策追踪预警</li>
+                        </ul>
+                    </div>
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-pink-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">⚙️</span>
+                            <div>
+                                <div class="font-semibold">运营优化师</div>
+                                <div class="text-xs text-gray-400">Operation AI</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• Listing优化</li>
+                            <li>• 广告策略制定</li>
+                            <li>• 库存管理预警</li>
+                            <li>• 定价策略建议</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-connector"></div>
+
+            <!-- Layer 2: 专业助手 -->
+            <div class="glass-card rounded-2xl p-6 mb-4 border-l-4 border-purple-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-purple-400">Layer 2: 专业助手 (Specialized Agents)</h3>
+                    <span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">执行层</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-orange-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">🅰️</span>
+                            <div>
+                                <div class="font-semibold">Amazon专家</div>
+                                <div class="text-xs text-gray-400">Amazon Pro</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• A9算法优化</li>
+                            <li>• PPC广告管理</li>
+                            <li>• FBA库存优化</li>
+                            <li>• 品牌保护监控</li>
+                        </ul>
+                    </div>
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-pink-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">📱</span>
+                            <div>
+                                <div class="font-semibold">TikTok专家</div>
+                                <div class="text-xs text-gray-400">TikTok Pro</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• 视频内容分析</li>
+                            <li>• 达人匹配推荐</li>
+                            <li>• 直播策划支持</li>
+                            <li>• 内容创作辅助</li>
+                        </ul>
+                    </div>
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-red-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">🛒</span>
+                            <div>
+                                <div class="font-semibold">Shopee专家</div>
+                                <div class="text-xs text-gray-400">Shopee Pro</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• 多站点管理</li>
+                            <li>• 本地化策略</li>
+                            <li>• 跨境物流优化</li>
+                            <li>• 促销策略设计</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layer-connector"></div>
+
+            <!-- Layer 3: 支撑助手 -->
+            <div class="glass-card rounded-2xl p-6 border-l-4 border-green-500">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-green-400">Layer 3: 支撑助手 (Support Agents)</h3>
+                    <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">基础层</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-cyan-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">🔧</span>
+                            <div>
+                                <div class="font-semibold">数据工程师</div>
+                                <div class="text-xs text-gray-400">Data Engineer</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• 数据清洗处理</li>
+                            <li>• 质量控制检查</li>
+                            <li>• 报告自动生成</li>
+                            <li>• 可视化展示</li>
+                        </ul>
+                    </div>
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-yellow-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">⚖️</span>
+                            <div>
+                                <div class="font-semibold">合规顾问</div>
+                                <div class="text-xs text-gray-400">Compliance</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• 知识产权检查</li>
+                            <li>• 合规风险评估</li>
+                            <li>• 税务咨询建议</li>
+                            <li>• 海关政策跟踪</li>
+                        </ul>
+                    </div>
+                    <div class="node-card bg-slate-800 rounded-xl p-4 border border-emerald-500/30">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-2xl">📚</span>
+                            <div>
+                                <div class="font-semibold">学习进化者</div>
+                                <div class="text-xs text-gray-400">Learning AI</div>
+                            </div>
+                        </div>
+                        <ul class="text-sm text-gray-300 space-y-1">
+                            <li>• 模型持续优化</li>
+                            <li>• 知识库更新</li>
+                            <li>• 策略自动迭代</li>
+                            <li>• 性能评估提升</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 数据流图 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-cyan-500 rounded-lg flex items-center justify-center text-sm">🌊</span>
+                数据流与任务调度
+            </h2>
+            <div class="glass-card rounded-2xl p-6">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                    <div class="flex-1 text-center p-4 bg-slate-800 rounded-xl">
+                        <div class="text-2xl mb-2">🕷️</div>
+                        <div class="font-semibold">数据采集</div>
+                        <div class="text-xs text-gray-400 mt-1">爬虫系统</div>
+                    </div>
+                    <div class="flow-arrow text-2xl text-blue-400">→</div>
+                    <div class="flex-1 text-center p-4 bg-slate-800 rounded-xl">
+                        <div class="text-2xl mb-2">🧮</div>
+                        <div class="font-semibold">数据处理</div>
+                        <div class="text-xs text-gray-400 mt-1">清洗/分析/评分</div>
+                    </div>
+                    <div class="flow-arrow text-2xl text-blue-400">→</div>
+                    <div class="flex-1 text-center p-4 bg-slate-800 rounded-xl">
+                        <div class="text-2xl mb-2">💾</div>
+                        <div class="font-semibold">数据存储</div>
+                        <div class="text-xs text-gray-400 mt-1">JSON/SQLite</div>
+                    </div>
+                    <div class="flow-arrow text-2xl text-blue-400">→</div>
+                    <div class="flex-1 text-center p-4 bg-slate-800 rounded-xl">
+                        <div class="text-2xl mb-2">📊</div>
+                        <div class="font-semibold">应用展示</div>
+                        <div class="text-xs text-gray-400 mt-1">Dashboard/飞书</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 定时任务 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-sm">⏰</span>
+                定时任务调度
+            </h2>
+            <div class="glass-card rounded-2xl p-6">
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-blue-400 font-mono">02:00</span>
+                            <span>Amazon BSR 数据抓取</span>
+                        </div>
+                        <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded">Daily</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-pink-400 font-mono">03:00</span>
+                            <span>TikTok Shop 热销抓取</span>
+                        </div>
+                        <span class="text-xs bg-pink-500/20 text-pink-300 px-2 py-1 rounded">Daily</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-red-400 font-mono">04:00</span>
+                            <span>Shopee 多站点抓取</span>
+                        </div>
+                        <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Daily</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-purple-400 font-mono">05:00</span>
+                            <span>数据整合与网站部署</span>
+                        </div>
+                        <span class="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded">Daily</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-green-400 font-mono">09:00</span>
+                            <span>AI行业晨报生成</span>
+                        </div>
+                        <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Daily</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-cyan-400 font-mono">10:15</span>
+                            <span>智能选品分析</span>
+                        </div>
+                        <span class="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded">Daily</span>
+                    </div>
+                    <div class="flex items-center justify-between p-3 bg-slate-800 rounded-lg">
+                        <div class="flex items-center gap-3">
+                            <span class="text-yellow-400 font-mono">10:30</span>
+                            <span>飞书多维表格同步</span>
+                        </div>
+                        <span class="text-xs bg-yellow-500/20 text-yellow-300 px-2 py-1 rounded">Daily</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术栈 -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-semibold mb-6 flex items-center gap-2">
+                <span class="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center text-sm">🛠️</span>
+                技术栈
+            </h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🐍</div>
+                    <div class="font-medium">Python</div>
+                    <div class="text-xs text-gray-400">核心语言</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🎭</div>
+                    <div class="font-medium">Playwright</div>
+                    <div class="text-xs text-gray-400">爬虫框架</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">⚛️</div>
+                    <div class="font-medium">React</div>
+                    <div class="text-xs text-gray-400">前端展示</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🗄️</div>
+                    <div class="font-medium">SQLite</div>
+                    <div class="text-xs text-gray-400">数据存储</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">📅</div>
+                    <div class="font-medium">APScheduler</div>
+                    <div class="text-xs text-gray-400">任务调度</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">🤖</div>
+                    <div class="font-medium">OpenClaw</div>
+                    <div class="text-xs text-gray-400">Agent框架</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">📊</div>
+                    <div class="font-medium">GitHub Pages</div>
+                    <div class="text-xs text-gray-400">部署托管</div>
+                </div>
+                <div class="glass-card rounded-xl p-4 text-center">
+                    <div class="text-2xl mb-2">💬</div>
+                    <div class="font-medium">飞书</div>
+                    <div class="text-xs text-gray-400">数据同步</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 链接 -->
+        <section class="text-center">
+            <div class="glass-card rounded-2xl p-6 inline-block">
+                <h3 class="text-lg font-semibold mb-4">相关链接</h3>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://yancyfeng999-star.github.io/xiaodong-dashboard/" 
+                       class="px-4 py-2 bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 rounded-lg transition-colors">
+                        📊 数据Dashboard
+                    </a>
+                    <a href="#" 
+                       class="px-4 py-2 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 rounded-lg transition-colors">
+                        🐙 GitHub Repo
+                    </a>
+                    <a href="#" 
+                       class="px-4 py-2 bg-green-500/20 hover:bg-green-500/30 text-green-300 rounded-lg transition-colors">
+                        📋 飞书多维表格
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="text-center py-8 text-gray-500 text-sm">
+        <p>小东AI • 跨境电商专家系统 • OpenClaw Agent Architecture</p>
+        <p class="mt-1">东品西选电商服务（成都）有限公司</p>
+    </footer>
+</body>
+</html>
